@@ -1,0 +1,140 @@
+---
+title: 'Decline Codes'
+icon: 'circle-exclamation'
+description: 'This section provides a detailed breakdown of common decline codes, their classifications, and recommended actions.'
+---
+
+Understanding and effectively managing payment decline codes is crucial for optimizing transaction success rates and providing a smooth customer experience.
+
+PayNext unifies various provider-specific decline codes into a standardized system, categorizing them as either **Soft Declines** or **Hard Declines**.
+
+---
+
+## Unified Error Payload Structure and Decline Code Mapping
+
+Regardless of the original payment provider, all payment errors within PayNext are transformed into a unified JSON structure. This standardized payload ensures consistent error analysis and handling.
+
+### Key Fields in the Unified Error Payload
+
+- **`message`**: A human-readable description of the error.
+- **`decline_type`**: Indicates the category of the decline — either `HARD_DECLINE` or `SOFT_DECLINE`.
+- **`code`**: A normalized reason code (e.g., `UNPROCESSABLE_ENTITY`, `CARD_EXPIRED`).
+
+<Note>
+This structure is associated with the corresponding payment record to enable observability and auditing.
+</Note>
+
+<Check>
+PayNext uses custom mapping functions to normalize provider-specific error codes, ensuring consistency across all integrated payment gateways.
+</Check>
+
+---
+
+## Conceptual Decline Code Mapping Table
+
+Understanding how various decline codes map to soft or hard declines is key to managing payment failures effectively. While the full list is available in the PayNext API Reference, the conceptual mapping below illustrates common scenarios and suggested handling:
+
+| Decline Reason | Decline Type | Recommended Action |
+|---|---|---|
+| `CARD_EXPIRED` | `SOFT_DECLINE` | Prompt customer to update card info |
+| `INSUFFICIENT_FUNDS` | `SOFT_DECLINE` | Retry or notify customer |
+| `FRAUD_SUSPECTED` | `HARD_DECLINE` | Block and alert security team |
+| `INVALID_CARD_NUMBER` | `HARD_DECLINE` | Prompt customer to re-enter details |
+| `PROCESSING_ERROR` | `SOFT_DECLINE` | Retry transaction after delay |
+
+<Warning>
+Always log declines for auditing and consider adaptive retry strategies for soft declines.
+</Warning>
+
+---
+
+| Decline Code | Description | Decline Type | Recommended Action |
+|---|---|---|---|
+| `05` | Do Not Honor | Hard | Prompt customer for new payment method. |
+| `14` | Invalid Card Number | Hard | Prompt customer to re-enter card details. |
+| `51` | Insufficient Funds | Soft | Retry later; advise customer to check funds. |
+| `54` | Expired Card | Hard | Prompt customer for new card. |
+| `65` | Activity Limit Exceeded | Soft | Retry later; advise customer to contact bank. |
+| `91` | Issuer or Switch Inoperative | Soft | Retry later; temporary system issue. |
+| `93` | Transaction Cannot Be Completed | Soft | Retry later; temporary system issue. |
+| `04` | Pick Up Card | Hard | Advise customer to contact bank; use new card. |
+| `07` | Pick Up Card, Special Condition | Hard | Advise customer to contact bank; use new card. |
+| `41` | Lost Card, Pick Up | Hard | Advise customer to contact bank; use new card. |
+| `43` | Stolen Card, Pick Up | Hard | Advise customer to contact bank; use new card. |
+
+<Tip>
+By leveraging this unified error handling and decline classification, you can implement sophisticated retry strategies for soft declines and guide customers effectively for hard declines, ultimately improving your payment success rates and reducing customer friction.
+</Tip>
+
+---
+
+| Name | Description | Type | Recommended Action |
+|---|---|---|---|
+| `INSTRUMENT_DECLINED` | Do Not Honor | Hard | Prompt customer for new payment method. |
+| `TRANSACTION_REFUSED` | Transaction Refused | Hard | Prompt customer for a new payment method. |
+| `PAYER_CANNOT_PAY` | Payer Cannot Pay | Hard | Ask customer to contact bank or try another card. |
+| `AUTHORIZATION_ERROR` | Authorization Error | Hard | Prompt new payment method or retry later. |
+| `INSUFFICIENT_FUNDS` | Insufficient Funds | Soft | Retry later; ask customer to check funds. |
+| `INVALID_PURCHASE_UNIT` | Invalid Card/Purchase Details | Hard | Ask customer to update payment method. |
+| `ADDRESS_INVALID` | Invalid Billing Address | Hard | Ask customer to correct billing address. |
+| `BA_TOKEN` | Billing Agreement Token Invalid | Hard | Restart the billing agreement flow. |
+| `BILL_AMOUNT_GREATER_THAN_OUTSTANDING_BALANCE` | Overbilling Error | Hard | Adjust billing amount accordingly. |
+| `DPRP_DISABLED` | Recurring Payments Not Enabled | Soft | Retry later or use manual payment. |
+| `ACCOUNT_RESTRICTED` | Customer Account Restricted | Hard | Ask customer to contact PayPal support. |
+| `UNPROCESSABLE_ENTITY` | Cannot process request in current state | Soft | Review and retry. Adjust request if needed. |
+| `INVALID_REQUEST` | Invalid request format or parameters | Soft | Validate input and retry. |
+| `INVALID_CURRENCY_CODE` | Unsupported or wrong currency | Soft | Check currency and retry. |
+| `RESOURCE_NOT_FOUND` | Resource does not exist | Soft | Verify or recreate resource. |
+| `INTERNAL_SERVER_ERROR` | Server Issue | Soft | Retry later; contact PayPal if persists. |
+| `DUPLICATE_INVOICE_ID` | Invoice ID already used | Soft | Use a unique invoice ID. |
+| `CANNOT_FIND_PROFILE_DESC` | Billing profile not found | Soft | Confirm profile ID and retry. |
+| `METHOD_NOT_SUPPORTED` | HTTP method not allowed | Soft | Use correct request method. |
+| `SERVICE_UNAVAILABLE` | Service is unavailable | Soft | Retry after some time. |
+| `REFUND_FAILED_INSUFFICIENT_FUNDS` | Refund failed, low balance | Soft | Ask user to fund account; retry later. |
+| `DUPLICATE_REQUEST_ID` | Duplicate request ID | Soft | Ensure idempotency and retry safely. |
+| `WALLET_TOO_MANY_ATTEMPTS` | Too many attempts | Soft | Retry after cooldown; advise user to wait. |
+| `UNSUPPORTED_MEDIA_TYPE` | Invalid request format (Content-Type) | Soft | Use correct media type like `application/json`. |
+| `authentication_required` | Authentication required (e.g. 3DS) | Soft | Prompt customer for additional authentication. |
+| `approve_with_id` | Issuer requires ID approval | Soft | Prompt customer to contact issuer. |
+| `call_issuer` | Issuer requires direct contact | Hard | Ask customer to contact their card issuer. |
+| `card_not_supported` | Card not supported | Hard | Ask customer to try another card. |
+| `card_velocity_exceeded` | Card usage limit exceeded | Soft | Retry later; advise customer to wait. |
+| `currency_not_supported` | Currency not supported by issuer | Hard | Prompt customer to use supported currency/card. |
+| `duplicate_transaction` | Duplicate transaction detected | Soft | Inform customer; do not retry immediately. |
+| `expired_card` | Card is expired | Hard | Ask customer for a new card. |
+| `fraudulent` | Marked as fraudulent by issuer | Hard | Do not retry; notify customer to contact issuer. |
+| `generic_decline` | Generic decline from issuer | Hard | Prompt for new payment method. |
+| `incorrect_number` | Invalid card number | Hard | Ask customer to re-enter card details. |
+| `incorrect_cvc` | Incorrect CVC code | Hard | Ask customer to verify and re-enter CVC. |
+| `incorrect_pin` | Incorrect PIN | Soft | Ask customer to re-enter correct PIN. |
+| `incorrect_zip` | ZIP/postal code mismatch | Soft | Ask customer to re-enter billing ZIP code. |
+| `invalid_number` | Invalid card number format | Hard | Ask customer to correct card details. |
+| `invalid_expiry_month` | Expiration month invalid | Hard | Ask customer to correct expiry date. |
+| `invalid_expiry_year` | Expiration year invalid | Hard | Ask customer to correct expiry date. |
+| `invalid_account` | Account number is invalid | Hard | Ask for new payment method. |
+| `invalid_pin` | PIN is invalid | Hard | Ask for valid PIN or alternative method. |
+| `issuer_not_available` | Issuer unavailable | Soft | Retry later. |
+| `lost_card` | Lost card reported | Hard | Decline permanently; ask for new card. |
+| `merchant_blacklist` | Merchant blocked by issuer | Hard | Do not retry; advise customer to contact issuer. |
+| `new_account_information_available` | New card issued | Soft | Ask customer to update payment info. |
+| `no_action_taken` | No further action taken | Soft | Retry or try another method. |
+| `not_permitted` | Transaction not allowed | Hard | Prompt customer for alternative method. |
+| `offline_pin_required` | Offline PIN required | Soft | Prompt for PIN or retry online method. |
+| `online_or_offline_pin_required` | PIN entry required | Soft | Prompt for PIN. |
+| `pickup_card` | Card must be retained | Hard | Do not retry; notify customer. |
+| `pin_try_exceeded` | Too many incorrect PIN attempts | Soft | Retry after cooldown; suggest alternate method. |
+| `processing_error` | Processing error | Soft | Retry transaction later. |
+| `reenter_transaction` | Retry requested by issuer | Soft | Retry once. |
+| `restricted_card` | Card has usage restrictions | Hard | Ask for alternative payment method. |
+| `revocation_of_all_authorizations` | All prior authorizations revoked | Hard | Ask for a different payment method. |
+| `revocation_of_authorization` | Authorization revoked | Hard | Prompt customer to re-authorize. |
+| `security_violation` | Security rules violation | Hard | Ask customer to use different method or card. |
+| `service_not_allowed` | Service not allowed on this account | Hard | Use a different method. |
+| `stolen_card` | Stolen card reported | Hard | Do not retry; advise customer to contact issuer. |
+| `stop_payment_order` | Stop payment request on file | Hard | Do not retry; contact customer. |
+| `testmode_decline` | Decline due to test mode | Soft | Ensure test/live mode is set correctly. |
+| `transaction_not_allowed` | Transaction not allowed by issuer | Hard | Ask for new payment method. |
+| `withdrawal_count_limit_exceeded` | Withdrawal count exceeded | Soft | Retry after limit resets. |
+| `resource_missing` | Required resource missing | Soft | Validate and retry with correct data. |
+| `parameter_unknown` | Unknown parameter passed | Soft | Check parameters and retry. |
+| `parameter_invalid_empty` | Required parameter is empty | Soft | Fill required fields and retry. |

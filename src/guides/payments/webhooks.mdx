@@ -1,0 +1,45 @@
+---
+title: 'Webhooks'
+icon: 'webhook'
+description: 'PayNext offers a robust Webhook Delivery & Logging System designed for real-time event notifications. This system is essential for maintaining data synchronization and enabling seamless event-driven integrations.'
+---
+
+---
+
+## Webhook Delivery & Logging System
+
+Our webhook system ensures reliable and secure delivery of real-time notifications for key events within the PayNext platform. All webhook activity is comprehensively tracked enabling full observability and analytics.
+
+<Tip>
+The webhook system provides complete transparency into delivery attempts, success rates, and failure patterns to help you optimize your integration.
+</Tip>
+
+---
+
+## Webhook Events
+
+Webhooks are triggered by various system events to help your external applications stay in sync with PayNext.
+
+### Triggered Events
+
+Find more details under our [Webhooks documentation](../../webhooks/introduction/getting-started).
+
+<Note>
+Each webhook delivers a structured payload relevant to the event type (payment, refund, or subscription data) to your configured webhook URL.
+</Note>
+
+---
+
+## Additional Details
+
+- **Payload Structure:**  
+  The `payload` varies based on event type:
+  
+  - For subscriptions: Includes full details like plan, status, and metadata
+  - For payments: Contains transaction data, amount, status, and refund details
+  - More details you can find under our Webhook documentation [link]
+
+- **Security & Reliability:**  
+  Webhooks are secured using bearer tokens and delivered consistently even for updates made through internal tools like the CRM.
+
+Webhooks provide the foundation for building real-time, event-driven applications that can respond immediately to changes in payment and subscription status.

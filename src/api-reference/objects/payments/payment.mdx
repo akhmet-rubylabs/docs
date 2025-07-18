@@ -1,0 +1,183 @@
+---
+title: "Payment"
+---
+
+## Attributes
+
+<ResponseField name="id" type="string">
+Unique identifier for the payment.
+
+Example: `"e8a1b2c3-d4f5-6789-abcd-ef0123456789"`
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+The date and time at which the payment was created in UTC format.
+
+Example: `"2025-05-25T14:30:00Z"`
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+The date and time of the last payment update in UTC format.
+
+Example: `"2025-05-25T14:30:00Z"`
+</ResponseField>
+
+<ResponseField name="currency_code" type="string">
+The 3-letter currency code in ISO 4217 format. e.g. use USD for US dollars.
+
+Available options: `AED`, `AFN`, `ALL`, `AMD`, `ANG`, `AOA`, `ARS`, `AUD`, `AWG`, `AZN`, `BAM`, `BBD`, `BDT`, `BGN`, `BHD`, `BIF`, `BMD`, `BND`, `BOB`, `BRL`, `BSD`, `BTN`, `BWP`, `BYN`, `BZD`, `CAD`, `CDF`, `CHF`, `CLP`, `CNY`, `COP`, `CRC`, `CUC`, `CUP`, `CVE`, `CZK`, `DJF`, `DKK`, `DOP`, `DZD`, `EGP`, `ERN`, `ETB`, `EUR`, `FJD`, `FKP`, `GBP`, `GEL`, `GHS`, `GIP`, `GMD`, `GNF`, `GTQ`, `GYD`, `HKD`, `HNL`, `HRK`, `HTG`, `HUF`, `IDR`, `ILS`, `IMP`, `INR`, `IQD`, `IRR`, `ISK`, `JEP`, `JMD`, `JOD`, `JPY`, `KES`, `KGS`, `KHR`, `KMF`, `KPW`, `KRW`, `KWD`, `KYD`, `KZT`, `LAK`, `LBP`, `LKR`, `LRD`, `LSL`, `LYD`, `MAD`, `MDL`, `MGA`, `MKD`, `MMK`, `MNT`, `MOP`, `MRU`, `MUR`, `MVR`, `MWK`, `MXN`, `MYR`, `MZN`, `NAD`, `NGN`, `NIO`, `NOK`, `NPR`, `NZD`, `OMR`, `PAB`, `PEN`, `PGK`, `PHP`, `PKR`, `PLN`, `PYG`, `QAR`, `RON`, `RSD`, `RUB`, `RWF`, `SAR`, `SBD`, `SCR`, `SDG`, `SEK`, `SGD`, `SHP`, `SLL`, `SOS`, `SRD`, `SSP`, `STD`, `STN`, `SVC`, `SYP`, `SZL`, `THB`, `TJS`, `TMT`, `TND`, `TOP`, `TRY`, `TTD`, `TWD`, `TZS`, `BOV`, `COU`, `CHE`, `CHW`, `MXV`, `UGX`, `VED`, `VES`, `VND`, `VUV`, `XAF`, `XCD`, `XFU`, `XOF`, `XPF`, `YER`, `USD`
+
+Example: `"USD"`
+</ResponseField>
+
+<ResponseField name="amount" type="integer">
+Payment amount in the specified currency (e.g., cents).
+
+Example: `15000`
+</ResponseField>
+
+<ResponseField name="amount_usd" type="integer">
+Payment amount converted to USD (e.g., cents).
+
+Example: `15000`
+</ResponseField>
+
+<ResponseField name="refunded_amount" type="integer">
+Amount that has been refunded for this payment.
+
+Example: `0`
+</ResponseField>
+
+<ResponseField name="payment_type" type="string">
+Type of payment (e.g., card, bank transfer).
+
+Available options: `MIT`, `CIT`
+
+Example: `"MIT"`
+</ResponseField>
+
+<ResponseField name="payment_status" type="string">
+Current status of the payment.
+
+Available options: `PENDING`, `FAILED`, `AUTHORIZED`, `SETTLING`, `SETTLED`, `DECLINED`, `CANCELLED`
+
+Example: `"AUTHORIZED"`
+</ResponseField>
+
+<ResponseField name="metadata" type="object">
+Custom metadata associated with the payment. A dictionary of key-value pairs.
+
+<Expandable title="Metadata properties">
+<ResponseField name="{key}" type="string">
+Custom key-value pairs for storing additional payment data.
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="attributes" type="object">
+Custom attributes associated with the payment. A dictionary of key-value pairs.
+
+<Expandable title="Attributes properties">
+<ResponseField name="{key}" type="string">
+Custom key-value pairs for storing additional payment attributes.
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="error" type="object">
+Error details in case of failed payment processing.
+
+<Expandable title="Error properties">
+<ResponseField name="decline_type" type="string">
+Type of decline reason.
+
+Example: `"HARD_DECLINE"`
+</ResponseField>
+
+<ResponseField name="decline_reason" type="string">
+Specific reason for the decline.
+
+Example: `"Decline reason"`
+</ResponseField>
+
+<ResponseField name="message" type="string">
+Error message describing the issue.
+
+Example: `"Error message"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="payment_details" type="object">
+Transaction details related to payment.
+
+<Expandable title="Payment details properties">
+<ResponseField name="auth_code" type="string">
+Authorization code from the payment processor.
+
+Example: `"123456"`
+</ResponseField>
+
+<ResponseField name="network_payment_id" type="string">
+Network payment identifier.
+
+Example: `"119676610486528"`
+</ResponseField>
+
+<ResponseField name="stripe_payment_intent_id" type="string">
+Stripe payment intent ID if using Stripe.
+
+Example: `"pi_3RTk1nJVVBuowJOx139x01h1"`
+</ResponseField>
+
+<ResponseField name="paypal_order_id" type="string">
+PayPal order ID if using PayPal.
+
+Example: `"123456"`
+</ResponseField>
+
+<ResponseField name="paypal_capture_id" type="string">
+PayPal capture ID if using PayPal.
+
+Example: `"123456"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+## Response structure
+
+<Expandable title="Payment Response Example">
+The response structure for all payment-related requests follows a consistent format as shown below.
+
+```json
+{
+    "id": "e8a1b2c3-d4f5-6789-abcd-ef0123456789",
+    "created_at": "2025-05-25T14:30:00Z",
+    "updated_at": "2025-05-25T14:30:00Z",
+    "currency_code": "USD",
+    "amount": 15000,
+    "amount_usd": 15000,
+    "refunded_amount": 0,
+    "payment_type": "MIT",
+    "payment_status": "AUTHORIZED",
+    "metadata": {
+        "key": "value"
+    },
+    "attributes": {
+        "key": "value"
+    },
+    "error": {
+        "decline_type": "HARD_DECLINE",
+        "decline_reason": "Decline reason",
+        "message": "Error message"
+    },
+    "payment_details": {
+        "auth_code": "123456",
+        "network_payment_id": "119676610486528",
+        "stripe_payment_intent_id": "pi_3RTk1nJVVBuowJOx139x01h1",
+        "paypal_order_id": "123456",
+        "paypal_capture_id": "123456"
+    }
+}
+```
+</Expandable>

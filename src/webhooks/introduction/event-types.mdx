@@ -1,0 +1,30 @@
+---
+title: "Event Types"
+---
+
+Triggered when actions related to payments occur, such as transaction updates. These webhooks allow you to track transaction statuses and reflect payment outcomes in your system.
+
+## Supported events
+
+Real-time notifications that keep your business synchronized with critical payment and subscription events. Integrate these webhooks to automate workflows, update customer records, and provide exceptional user experiences.
+
+#### Payment Events
+
+Payment webhooks enable instant reaction to transaction lifecycle changes, helping you maintain accurate financial records and provide immediate customer feedback.
+
+| Event Name        | Description                                                                                                                                                                             |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `payment.created` | **Payment Initiated** - Triggered when a customer starts a payment transaction. Perfect for updating order status, sending confirmation emails, and initiating fulfillment processes.   |
+| `payment.updated` | **Payment Status Changed** - Fired when payment status changes (succeeded, failed, pending). Essential for real-time order tracking, customer notifications, and inventory management.  |
+| `refund.created`  | **Refund Initiated** - Sent when a refund process begins. Ideal for triggering return workflows, updating customer accounts, and notifying relevant teams.                              |
+| `refund.updated`  | **Refund Processed** - Triggered when refund status changes (completed, failed, pending). Critical for closing support tickets, updating financial records, and customer communication. |
+
+#### Subscription Events
+
+Subscription webhooks provide automated billing lifecycle management, ensuring seamless recurring revenue operations and superior customer retention strategies.
+
+| Event Name              | Description                                                                                                                                                                                                  |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `subscription.created`  | **New Subscription Activated** - Triggered when a customer successfully subscribes to a service. Perfect for provisioning access, sending welcome sequences, and starting billing cycles.                    |
+| `subscription.updated`  | **Subscription Modified** - Fired when subscription details change (plan upgrade/downgrade, billing frequency, pricing). Essential for access control updates, prorated billing, and customer notifications. |
+| `subscription.canceled` | **Subscription Terminated** - Sent when a subscription is canceled or expires. Critical for access revocation, retention campaigns, exit surveys, and final billing processes.                               |

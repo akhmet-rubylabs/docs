@@ -1,0 +1,67 @@
+---
+title: "Error"
+---
+
+## Attributes
+
+<ResponseField name="error" type="object">
+Error object containing details about the failure.
+
+<Expandable title="Error properties">
+<ResponseField name="message" type="string">
+General error message describing what went wrong.
+
+Example: `"Validation failed"`
+</ResponseField>
+
+<ResponseField name="validation_errors" type="array">
+Array of validation errors with specific field-level details.
+
+<Expandable title="Validation error properties">
+<ResponseField name="field" type="string">
+The field that failed validation.
+
+Example: `"email"`
+</ResponseField>
+
+<ResponseField name="message" type="string">
+Specific error message for the field.
+
+Example: `"Invalid email format"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+## Response structure
+
+<Expandable title="Error Response Example">
+The response structure for error-related requests follows a consistent format as shown below.
+
+```json
+{
+  "error": {
+    "message": "Not found",
+  }
+}
+```
+
+```json
+{
+  "error": {
+    "message": "Validation failed",
+    "validation_errors": [
+      {
+        "field": "email",
+        "message": "Invalid email format"
+      },
+      {
+        "field": "amount",
+        "message": "Amount must be greater than 0"
+      }
+    ]
+  }
+}
+```
+</Expandable>

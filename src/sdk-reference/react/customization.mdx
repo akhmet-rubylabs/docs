@@ -1,0 +1,252 @@
+---
+title: 'Customization'
+---
+
+## CheckoutForm Props
+
+<ResponseField name="clientToken" type="string" required>
+  **Required.** Client token obtained from the PayNext billing platform. This token authenticates your integration and enables secure payment processing.
+  
+  ```tsx
+  <CheckoutForm clientToken={'YOUR_CLIENT_TOKEN'} />
+  ```
+</ResponseField>
+
+<ResponseField name="supportedCardTypes" type="CardType[]" default="All card types">
+  Array of card types that should be accepted by the checkout form. If not provided, all supported card types will be accepted.
+  
+  <Accordion title="CardType options">
+  ```tsx
+  import { CardType } from '@paynext/sdk'
+  
+  // Major credit cards
+  const majorCards = [
+    CardType.Visa,
+    CardType.Mastercard,
+    CardType.AmericanExpress
+  ]
+  
+  // All supported cards
+  const allCards = [
+    CardType.Visa,
+    CardType.Mastercard,
+    CardType.AmericanExpress,
+    CardType.Discover,
+    CardType.JCB,
+    CardType.DinersClub,
+    CardType.UnionPay,
+    CardType.Maestro
+  ]
+  
+  <CheckoutForm clientToken={'YOUR_CLIENT_TOKEN'} supportedCardTypes={majorCards} />
+  ```
+  </Accordion>
+  
+  **Available card types:** `visa`, `mastercard`, `american-express`, `discover`, `jcb`, `diners-club`, `unionpay`, `maestro`
+</ResponseField>
+
+<ResponseField name="locale" type="Locale" default="en">
+  Language locale for the checkout form interface. Supports 35+ languages including major European, Asian, and Middle Eastern languages.
+  
+  <Accordion title="Popular locales">
+  ```tsx
+  // Popular European languages
+  <CheckoutForm locale={'en'} /> // English
+  <CheckoutForm locale={'de'} /> // German
+  <CheckoutForm locale={'fr'} /> // French
+  <CheckoutForm locale={'es'} /> // Spanish
+  <CheckoutForm locale={'it'} /> // Italian
+  
+  // Asian languages
+  <CheckoutForm locale={'ja'} /> // Japanese
+  <CheckoutForm locale={'zh'} /> // Chinese
+  <CheckoutForm locale={'ko'} /> // Korean
+  
+  // Auto-detect user's language
+  const userLocale = navigator.language.split('-')[0] as Locale
+  <CheckoutForm clientToken={'YOUR_CLIENT_TOKEN'} locale={userLocale} />
+  ```
+  </Accordion>
+  
+  [View all supported locales →](/src/sdk-reference/common-objects#locale-type)
+</ResponseField>
+
+<ResponseField name="variant" type="'default' | 'compact'" default="default">
+  Controls the display mode of the checkout form:
+  
+  - `default`: Full form with all payment fields visible
+  - `compact`: Card form is initially hidden behind a "Card" button
+  
+  ```tsx
+  <CheckoutForm clientToken={'YOUR_CLIENT_TOKEN'} variant="compact" />
+  ```
+</ResponseField>
+
+<ResponseField name="translate" type="DeepPartial<CheckoutTranslate>">
+  Custom translations and messages for checkout form elements. Allows overriding default text for buttons, labels, and error messages.
+  
+  <Accordion title="Translation structure">
+  ```tsx
+  const customTranslates = {
+    card: {
+      title: 'Billing Information',
+      pay: {
+        button: 'Start 7-Day Trial'
+      },
+      number: {
+        label: 'Credit Card Number',
+        error: {
+          required: 'Please enter your card number',
+          invalid: 'Invalid card number format'
+        }
+      },
+      expiry: {
+        label: 'Expiration Date',
+        placeholder: 'MM/YY'
+      },
+      cvc: {
+        label: 'Security Code',
+        placeholder: 'CVC'
+      },
+      name: {
+        label: 'Name on Card',
+        placeholder: 'Full name'
+      }
+    },
+    status: {
+      success: 'Payment completed successfully!',
+      error: 'Payment failed. Please try again.'
+    }
+  }
+  
+  <CheckoutForm clientToken={'YOUR_CLIENT_TOKEN'} translate={customTranslates} />
+  ```
+  </Accordion>
+  
+  [View complete translation interface →](/src/sdk-reference/common-objects#checkouttranslate-object)
+</ResponseField>
+
+<ResponseField name="styles" type="StylesConfig">
+  Custom styling configuration for checkout form elements. Supports both CSS-in-JS styles and CSS classes.
+  
+  <Accordion title="Styling options">
+  ```tsx
+  const customStyles = {
+    card: {
+      // Button styling
+      button: {
+        styles: { 
+          backgroundColor: '#0d766e',
+          borderRadius: '8px',
+          fontWeight: '600'
+        },
+        className: 'hover:bg-green-700 transition-colors duration-200',
+        icon: <CreditCardIcon className="w-5 h-5" />
+      },
+      
+      // Input field styling
+      input: {
+        field: {
+          styles: {
+            border: '2px solid #e2e8f0',
+            padding: '12px'
+          },
+          className: 'focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
+        },
+        label: {
+          styles: {
+            color: '#374151',
+            fontSize: '14px'
+          }
+        },
+        error: {
+          styles: { color: '#ef4444' },
+          className: 'text-sm font-medium'
+        },
+        container: {
+          className: 'mb-4'
+        }
+      }
+    }
+  }
+  
+  <CheckoutForm clientToken={'YOUR_CLIENT_TOKEN'} styles={customStyles} />
+  ```
+  </Accordion>
+  
+  [View complete styling interface →](/src/sdk-reference/checkout-styles/overview)
+</ResponseField>
+
+<ResponseField name="onCheckoutComplete" type="() => void">
+  Callback function executed when payment processing completes successfully. Use this to redirect users, show success messages, or update your application state.
+  
+  <Accordion title="Success handling examples">
+  ```tsx
+  // Simple success handler
+  const handleSuccess = () => {
+    console.log('Payment successful!')
+    alert('Thank you for your payment!')
+  }
+  
+  // Redirect to success page
+  const handleSuccessWithRedirect = () => {
+    router.push('/success')
+    // or window.location.href = '/success'
+  }
+  
+  // Update application state
+  const handleSuccessWithState = () => {
+    setPaymentStatus('completed')
+    setShowConfirmation(true)
+    // Send analytics event
+    analytics.track('payment_completed')
+  }
+  
+  <CheckoutForm onCheckoutComplete={handleSuccess} />
+  ```
+  </Accordion>
+</ResponseField>
+
+<ResponseField name="onCheckoutFail" type="(error: Error) => void">
+  Callback function executed when payment processing fails. Receives an Error object with details about the failure reason.
+  
+  <Accordion title="Error handling examples">
+  ```tsx
+  // Basic error handler
+  const handleError = (error: Error) => {
+    console.error('Payment failed:', error.message)
+    alert(`Payment failed: ${error.message}`)
+  }
+  
+  // Advanced error handling with toast notifications
+  const handleErrorWithToast = (error: Error) => {
+    console.error('Payment failed:', error)
+    
+    // Show user-friendly error message
+    toast.error(error.message || 'Payment failed. Please try again.')
+    
+    // Send error to analytics
+    analytics.track('payment_failed', {
+      error_message: error.message,
+      error_code: error.code
+    })
+  }
+  
+  // Error handling with retry logic
+  const handleErrorWithRetry = (error: Error) => {
+    setPaymentError(error.message)
+    setRetryCount(prev => prev + 1)
+    
+    if (retryCount < 3) {
+      // Allow user to retry
+      setShowRetryButton(true)
+    } else {
+      // Too many failures, contact support
+      setShowContactSupport(true)
+    }
+  }
+  
+  <CheckoutForm clientToken={'YOUR_CLIENT_TOKEN'} onCheckoutFail={handleError} />
+  ```
+  </Accordion>
+</ResponseField>

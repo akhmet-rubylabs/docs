@@ -1,0 +1,222 @@
+---
+title: 'Constants'
+---
+
+This page lists all the constant values and enumerations available in the PayNext SDK.
+
+## Card Networks
+
+Supported payment card networks for processing transactions.
+
+<Accordion title="CardType enum values">
+  The following card types are supported by the PayNext SDK:
+
+  **Major Credit Cards:**
+  - `visa` - Visa
+  - `mastercard` - Mastercard  
+  - `american-express` - American Express
+
+  **Regional & Specialty Cards:**
+  - `discover` - Discover
+  - `jcb` - JCB (Japan Credit Bureau)
+  - `diners-club` - Diners Club
+  - `unionpay` - UnionPay (China)
+  - `maestro` - Maestro (Debit)
+</Accordion>
+
+## Locales
+
+Supported language locales for internationalization of the checkout form interface.
+
+<Accordion title="Supported locales (35+ languages)">
+  The PayNext SDK supports **35+ languages** for a global user experience:
+
+  <Accordion title="Western European Languages">
+    - `en` - English
+    - `de` - German (Deutsch)
+    - `fr` - French (Français)
+    - `es` - Spanish (Español)
+    - `it` - Italian (Italiano)
+    - `pt` - Portuguese (Português)
+    - `nl` - Dutch (Nederlands)
+  </Accordion>
+
+  <Accordion title="Northern European Languages">
+    - `da` - Danish (Dansk)
+    - `fi` - Finnish (Suomi)
+    - `nb` - Norwegian Bokmål (Norsk)
+    - `sv` - Swedish (Svenska)
+  </Accordion>
+
+  <Accordion title="Eastern European Languages">
+    - `bg` - Bulgarian (Български)
+    - `cs` - Czech (Čeština)
+    - `et` - Estonian (Eesti)
+    - `hr` - Croatian (Hrvatski)
+    - `hu` - Hungarian (Magyar)
+    - `lt` - Lithuanian (Lietuvių)
+    - `lv` - Latvian (Latviešu)
+    - `mt` - Maltese (Malti)
+    - `pl` - Polish (Polski)
+    - `ro` - Romanian (Română)
+    - `ru` - Russian (Русский)
+    - `sk` - Slovak (Slovenčina)
+    - `sl` - Slovenian (Slovenščina)
+  </Accordion>
+
+  <Accordion title="Southern European Languages">
+    - `el` - Greek (Ελληνικά)
+  </Accordion>
+
+  <Accordion title="Asian Languages">
+    - `ja` - Japanese (日本語)
+    - `ko` - Korean (한국어)
+    - `zh` - Chinese (中文)
+    - `th` - Thai (ไทย)
+    - `vi` - Vietnamese (Tiếng Việt)
+    - `id` - Indonesian (Bahasa Indonesia)
+    - `ms` - Malay (Bahasa Melayu)
+    - `fil` - Filipino
+  </Accordion>
+
+  <Accordion title="Middle Eastern Languages">
+    - `ar` - Arabic (العربية)
+    - `tr` - Turkish (Türkçe)
+  </Accordion>  
+</Accordion>
+
+## Form Variants
+
+Display modes for the checkout form component.
+
+<Accordion title="Variant options">
+  **Available variants:**
+
+  - `default` - **Full form display** - All payment fields are visible immediately
+  - Best for dedicated checkout pages
+  - Provides clear visual hierarchy
+  - Reduces cognitive load for users
+
+  - `compact` - **Collapsible form** - Payment fields are hidden behind a "Card" button
+  - Ideal for embedded checkout in smaller spaces
+  - Saves screen real estate
+  - Good for mobile-first designs
+</Accordion>
+
+## Error Types
+
+Common error types that may be returned by the SDK.
+
+<Accordion title="Error categories">
+
+<Accordion title="Validation Errors">
+  - `card_number_required` - Card number field is empty
+  - `card_number_invalid` - Card number format is incorrect
+  - `card_number_incomplete` - Card number is too short
+  - `card_number_unsupported` - Card type not supported
+</Accordion>
+
+<Accordion title="Expiry Date Errors">
+  - `expiry_required` - Expiry date field is empty
+  - `expiry_invalid` - Expiry date format is incorrect
+  - `expiry_incomplete` - Expiry date is incomplete
+  - `expiry_expired` - Card has already expired
+</Accordion>
+
+<Accordion title="CVC Errors">
+  - `cvc_required` - CVC field is empty
+  - `cvc_incomplete` - CVC is too short
+  - `cvc_invalid` - CVC format is incorrect
+</Accordion>
+
+<Accordion title="Cardholder Errors">
+  - `name_required` - Cardholder name is required
+  - `name_invalid` - Cardholder name format is invalid
+</Accordion>
+
+<Accordion title="Processing Errors">
+  - `payment_failed` - General payment processing failure
+  - `network_error` - Network connectivity issue
+  - `authentication_failed` - Token authentication failed
+</Accordion>
+
+</Accordion>
+
+## Default Values
+
+Default configuration values used by the SDK.
+
+<Accordion title="Default configuration">
+
+  <Accordion title="DEFAULT_CONFIG object">
+  ```tsx
+  const DEFAULT_CONFIG = {
+    locale: 'en',
+    variant: 'default',
+    supportedCardTypes: [
+      'visa',
+      'mastercard', 
+      'american-express',
+      'discover',
+      'jcb',
+      'diners-club',
+      'unionpay',
+      'maestro'
+    ]
+  }
+  ```
+  </Accordion>
+
+  <Accordion title="DEFAULT_TRANSLATE object">
+  ```tsx
+  const DEFAULT_TRANSLATE = {
+    card: {
+      title: 'Payment Details',
+      number: { 
+        label: 'Card Number',
+        error: {
+          required: 'Card number is required',
+          invalid: 'Card number is invalid',
+          incomplete: 'Card number is incomplete',
+          unsupported: 'Card type is not supported'
+        }
+      },
+      expiry: { 
+        label: 'Expiry Date', 
+        placeholder: 'MM/YY',
+        error: {
+          required: 'Expiry date is required',
+          invalid: 'Expiry date is invalid',
+          incomplete: 'Expiry date is incomplete',
+          expired: 'Card has expired'
+        }
+      },
+      cvc: { 
+        label: 'CVC', 
+        placeholder: '123',
+        error: {
+          required: 'CVC is required',
+          incomplete: 'CVC is incomplete',
+          invalid: 'CVC is invalid'
+        }
+      },
+      name: { 
+        label: 'Cardholder Name', 
+        placeholder: 'Full name on card',
+        error: {
+          required: 'Cardholder name is required',
+          invalid: 'Cardholder name is invalid'
+        }
+      },
+      pay: { button: 'Pay Now' },
+      compact: { button: 'Card' }
+    },
+    status: {
+      success: 'Payment successful',
+      error: 'Payment failed'
+    }
+  }
+  ```
+  </Accordion>
+
+</Accordion>

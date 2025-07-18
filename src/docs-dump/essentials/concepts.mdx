@@ -1,0 +1,96 @@
+---
+title: "PayNext Concepts"
+description: "PayNext manages payment and subscription lifecycles both automatically and via API. When using the subscriptions feature, define the payment lifecycle once during setup, and PayNext will automatically handle authorization, settlement, and recurring billing. Alternatively, you can fully control the process by creating payments via API based on your product needs."
+---
+
+## Payment lifecycle
+
+All PayNext payments conform to a unified payment lifecycle, which makes them work the same way regardless of the payment services you need.
+
+A payment always has a **payment status**. Each payment will progress through some combination of the statuses listed below on their way through your Workflow.
+
+A newly-created payment is assigned the status **PENDING**.
+
+```mermaid
+flowchart LR
+Pending("● Pending"):::pendingStyle
+Authorized("● Authorized"):::settledStyle
+Settling("● Settling"):::pendingStyle
+Settled("● Settled"):::settledStyle
+Declined("● Declined"):::declinedStyle
+Failed("● Failed"):::declinedStyle
+Cancelled("● Cancelled"):::cancelledStyle
+Refunded("● Refunded"):::cancelledStyle
+
+%% Styling with rounded corners, no borders and colored dots
+classDef pendingStyle fill:#f2f2f3,stroke-width:0,color:#656567
+classDef settledStyle fill:#e2f8ec,stroke-width:0,color:#0b5f30
+classDef declinedStyle fill:#fee1eb,stroke-width:0,color:#f31260
+classDef cancelledStyle fill:#fef4e4,stroke-width:0,color:#744e11
+
+%% Making all links thin
+linkStyle default stroke-width:1px
+
+Pending --> Authorized
+Pending --> Declined
+Pending --> Failed
+Authorized --> Settling
+Settling --> Settled
+Settling --> Cancelled
+Settled --> Refunded
+```
+
+| Status         | Description                                                                                                                                                                           |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **PENDING**    | The payment is awaiting a subsequent action or callback. This usually occurs with asynchronous processors. Prepare for this contingency by setting up Webhooks.                       |
+| **AUTHORIZED** | The processor has authorized the payment and no further status-altering actions have been defined in your Workflow.                                                                   |
+| **DECLINED**   | The processor has declined the payment and no further status-altering actions have been defined in your Workflow. You may want to consider retrying certain declined payments.        |
+| **FAILED**     | This usually occurs when there is a processor gateway issue, such as a service disruption. Set up retries and fallbacks to mitigate failures.                                         |
+| **CANCELLED**  | The payment was canceled prior to it being settled.                                                                                                                                   |
+| **SETTLING**   | The payment has been submitted for settlement and funds will be settled later. This usually occurs with asynchronous processors. Prepare for this contingency by setting up Webhooks. |
+| **REFUNDED**   | The transaction was successfully refunded after it had been processed and settled.                                                                                                    |
+
+## Subscription lifecycle
+
+```mermaid
+flowchart LR
+    Trial("● Trial"):::pendingStyle
+	New_subscription("● New Subscription"):::pendingStyle
+    Active("● Active"):::settledStyle
+    Cancelled("● Cancelled"):::declinedStyle
+
+    %% Styling with rounded corners, no borders and colored dots
+    classDef pendingStyle fill:#f2f2f3,stroke-width:0,color:#656567
+    classDef settledStyle fill:#e2f8ec,stroke-width:0,color:#0b5f30
+    classDef declinedStyle fill:#fee1eb,stroke-width:0,color:#f31260
+    classDef cancelledStyle fill:#fef4e4,stroke-width:0,color:#744e11
+
+    %% Making all links thin
+    linkStyle default stroke-width:1px
+
+    New_subscription --> Trial
+	New_subscription --> Active
+	Trial --> Active
+    Trial --> Cancelled
+    Active --> Cancelled
+```
+
+### Billing Retry
+
+If the customer’s recurrent payment is Declined or Failed, the renewal fails and the user’s subscription enters a billing retry state, where the PayNext attempts to collect payment for up to 30 days. This billing retry lowers the rate of involuntary churn and prevents the need to re-acquire subscribers if they churned. If the user is recovered within the 30 days, the new billing date is established on the date of recovery and subsequent renewal dates are based on this new billing date, as shown in the figure below.
+
+<img
+  src="/images/Frame13272288715.svg"
+  alt="Frame13272288715 Sv"
+  title="Frame13272288715 Sv"
+  className="mx-auto"
+/>
+
+### Subscription Statuses
+
+| Status                              | Description                                                                                                                                                                                                                                                                                                                         |
+| :---------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **<Tooltip tip="">trial</Tooltip>** | The subscription is currently in a trial period and you can safely provision your product for your customer. The subscription transitions automatically to active when a customer makes the first payment.                                                                                                                          |
+| **active**                          | The subscription is in good standing. For past_due subscriptions, paying the latest due payment transitions the subscription to active.                                                                                                                                                                                             |
+| **past_due**                        | Payment on the latest recurrent payment was either Declined or Failed. The subscription stops creating new invoices. If the due payment is still unpaid after all attempted billing retries, subscription moves to canceled. To move the subscription to active, customer needs to pay the most recent invoice before its due date. |
+| **canceled**                        | The subscription was cancelled. During cancellation, automatic collection for all due payments is disabled. This is a terminal state that can't be updated.                                                                                                                                                                         |

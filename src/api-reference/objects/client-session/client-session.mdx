@@ -1,0 +1,438 @@
+---
+title: "Client Session"
+---
+
+## Attributes
+
+<ResponseField name="id" type="string">
+Unique identifier for the client session.
+
+Example: `"d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123"`
+</ResponseField>
+
+<ResponseField name="expiry_date" type="string">
+Expiration date and time of the client session.
+
+Example: `"2021-08-12T16:14:08.578695"`
+</ResponseField>
+
+<ResponseField name="customer" type="object">
+Customer information associated with the client session.
+
+<Expandable title="Customer properties">
+<ResponseField name="address" type="object">
+Address information of the customer.
+
+<Expandable title="Address properties">
+<ResponseField name="country" type="string">
+ISO country code (e.g., US, DE, AD).
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="email" type="string">
+Email address of the customer.
+
+Example: `"jane.doe@example.com"`
+</ResponseField>
+
+<ResponseField name="external_id" type="string">
+External ID of the customer.
+
+Example: `"cust_123456789"`
+</ResponseField>
+
+<ResponseField name="metadata" type="object">
+Custom metadata. A dictionary of key-value pairs.
+
+<Expandable title="Metadata properties">
+<ResponseField name="{key}" type="string">
+Custom key-value pairs for storing additional data.
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="plan" type="object">
+Subscription plan information.
+
+<Expandable title="Plan properties">
+    <ResponseField name="id" type="string">
+    Unique identifier for the plan.
+    
+    Example: `"1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"`
+    </ResponseField>
+
+    <ResponseField name="created_at" type="string">
+    Timestamp when the plan was created.
+    
+    Example: `"2025-05-26T10:00:00Z"`
+    </ResponseField>
+
+    <ResponseField name="updated_at" type="string">
+    Timestamp when the plan was last updated.
+    
+    Example: `"2025-05-27T10:00:00Z"`
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+    Name of the subscription plan.
+    
+    Example: `"Pro Plan"`
+    </ResponseField>
+
+    <ResponseField name="type" type="string">
+    Type of the subscription plan.
+    
+    Example: `"recurring"`
+    </ResponseField>
+
+    <ResponseField name="interval" type="string">
+    Billing interval unit.
+    
+    Example: `"days"`
+    </ResponseField>
+
+    <ResponseField name="interval_count" type="integer">
+    Number of intervals between billing.
+    
+    Example: `1`
+    </ResponseField>
+
+    <ResponseField name="amount" type="integer">
+    Plan amount in the smallest currency unit.
+    
+    Example: `1999`
+    </ResponseField>
+
+    <ResponseField name="currency" type="string">
+    Currency code for the plan.
+    
+    Example: `"AED"`
+    </ResponseField>
+
+    <ResponseField name="trial" type="object">
+    Trial period information.
+    
+    <Expandable title="Trial properties">
+        <ResponseField name="interval" type="string">
+        Trial interval unit.
+        
+        Example: `"days"`
+        </ResponseField>
+
+        <ResponseField name="interval_count" type="integer">
+        Number of trial intervals.
+        
+        Example: `1`
+        </ResponseField>
+
+        <ResponseField name="amount" type="integer">
+        Trial amount in the smallest currency unit.
+        
+        Example: `1999`
+        </ResponseField>
+
+        <ResponseField name="currency" type="string">
+        Trial currency code.
+        
+        Example: `"AED"`
+        </ResponseField>
+    </Expandable>
+    </ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="currency_details" type="object">
+Detailed currency information for the plan.
+
+<Expandable title="Currency details properties">
+    <ResponseField name="plan" type="object">
+    Currency details for the plan pricing.
+    
+    <Expandable title="Plan currency properties">
+        <ResponseField name="local" type="object">
+        Local currency information.
+        
+        <Expandable title="Local currency properties">
+            <ResponseField name="amount" type="integer">
+            Amount in local currency.
+            
+            Example: `90`
+            </ResponseField>
+
+            <ResponseField name="currency" type="string">
+            Local currency code.
+            
+            Example: `"AED"`
+            </ResponseField>
+
+            <ResponseField name="currency_decimals" type="integer">
+            Number of decimal places for the currency.
+            
+            Example: `2`
+            </ResponseField>
+
+            <ResponseField name="currency_exchange_rate" type="number">
+            Exchange rate from payment currency to local currency.
+            
+            Example: `0.9`
+            </ResponseField>
+
+            <ResponseField name="currency_position" type="string">
+            Position of currency symbol.
+            
+            Example: `"left"`
+            </ResponseField>
+
+            <ResponseField name="currency_symbol" type="string">
+            Currency symbol.
+            
+            Example: `"€"`
+            </ResponseField>
+
+            <ResponseField name="formatted_amount" type="string">
+            Formatted amount with currency symbol.
+            
+            Example: `"€0.90"`
+            </ResponseField>
+
+            <ResponseField name="formatted_amount_rounded" type="string">
+            Rounded formatted amount with currency symbol.
+            
+            Example: `"€0.99"`
+            </ResponseField>
+        </Expandable>
+        </ResponseField>
+
+        <ResponseField name="payment" type="object">
+        Payment currency information.
+        
+        <Expandable title="Payment currency properties">
+            <ResponseField name="amount" type="integer">
+            Amount in payment currency.
+            
+            Example: `100`
+            </ResponseField>
+
+            <ResponseField name="currency" type="string">
+            Payment currency code.
+            
+            Example: `"AED"`
+            </ResponseField>
+
+            <ResponseField name="currency_decimals" type="integer">
+            Number of decimal places for the currency.
+            
+            Example: `2`
+            </ResponseField>
+
+            <ResponseField name="currency_position" type="string">
+            Position of currency symbol.
+            
+            Example: `"left"`
+            </ResponseField>
+
+            <ResponseField name="currency_symbol" type="string">
+            Currency symbol.
+            
+            Example: `"$"`
+            </ResponseField>
+
+            <ResponseField name="formatted_amount" type="string">
+            Formatted amount with currency symbol.
+            
+            Example: `"$1.00"`
+            </ResponseField>
+        </Expandable>
+        </ResponseField>
+
+        <ResponseField name="trial" type="object">
+        Currency details for trial pricing.
+        
+        <Expandable title="Trial currency properties">
+            <ResponseField name="local" type="object">
+            Local currency information for trial.
+            
+            <Expandable title="Trial local currency properties">
+                <ResponseField name="amount" type="integer">
+                Trial amount in local currency.
+                
+                Example: `90`
+                </ResponseField>
+
+                <ResponseField name="currency" type="string">
+                Local currency code.
+                
+                Example: `"AED"`
+                </ResponseField>
+
+                <ResponseField name="currency_decimals" type="integer">
+                Number of decimal places for the currency.
+                
+                Example: `2`
+                </ResponseField>
+
+                <ResponseField name="currency_exchange_rate" type="number">
+                Exchange rate from payment currency to local currency.
+                
+                Example: `0.9`
+                </ResponseField>
+
+                <ResponseField name="currency_position" type="string">
+                Position of currency symbol.
+                
+                Example: `"left"`
+                </ResponseField>
+
+                <ResponseField name="currency_symbol" type="string">
+                Currency symbol.
+                
+                Example: `"€"`
+                </ResponseField>
+
+                <ResponseField name="formatted_amount" type="string">
+                Formatted amount with currency symbol.
+                
+                Example: `"€0.90"`
+                </ResponseField>
+
+                <ResponseField name="formatted_amount_rounded" type="string">
+                Rounded formatted amount with currency symbol.
+                
+                Example: `"€0.99"`
+                </ResponseField>
+            </Expandable>
+            </ResponseField>
+
+            <ResponseField name="payment" type="object">
+            Payment currency information for trial.
+            
+            <Expandable title="Trial payment currency properties">
+                <ResponseField name="amount" type="integer">
+                Trial amount in payment currency.
+                
+                Example: `100`
+                </ResponseField>
+
+                <ResponseField name="currency" type="string">
+                Payment currency code.
+                
+                Example: `"AED"`
+                </ResponseField>
+
+                <ResponseField name="currency_decimals" type="integer">
+                Number of decimal places for the currency.
+                
+                Example: `2`
+                </ResponseField>
+
+                <ResponseField name="currency_position" type="string">
+                Position of currency symbol.
+                
+                Example: `"left"`
+                </ResponseField>
+
+                <ResponseField name="currency_symbol" type="string">
+                Currency symbol.
+                
+                Example: `"$"`
+                </ResponseField>
+
+                <ResponseField name="formatted_amount" type="string">
+                Formatted amount with currency symbol.
+                
+                Example: `"$1.00"`
+                </ResponseField>
+            </Expandable>
+            </ResponseField>
+        </Expandable>
+        </ResponseField>
+    </Expandable>
+    </ResponseField>
+</Expandable>
+</ResponseField>
+
+## Response structure
+
+<Expandable title="Client Session Response Example">
+The response structure for all payment-related requests follows a consistent format as shown below.
+
+```json
+{
+    "id": "d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123",
+    "expiry_date": "2021-08-12T16:14:08.578695",
+    "customer": {
+        "address": {
+            "country": "AD"
+        },
+        "email": "jane.doe@example.com",
+        "external_id": "cust_123456789",
+        "metadata": {
+            "key": "value"
+        }
+    },
+    "plan": {
+        "id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+        "created_at": "2025-05-26T10:00:00Z",
+        "updated_at": "2025-05-27T10:00:00Z",
+        "name": "Pro Plan",
+        "type": "recurring",
+        "interval": "days",
+        "interval_count": 1,
+        "amount": 1999,
+        "currency": "AED",
+        "trial": {
+            "interval": "days",
+            "interval_count": 1,
+            "amount": 1999,
+            "currency": "AED"
+        }
+    },
+    "currency_details": {
+        "plan": {
+            "local": {
+                "amount": 90,
+                "currency": "AED",
+                "currency_decimals": 2,
+                "currency_exchange_rate": 0.9,
+                "currency_position": "left",
+                "currency_symbol": "€",
+                "formatted_amount": "€0.90",
+                "formatted_amount_rounded": "€0.99"
+            },
+            "payment": {
+                "amount": 100,
+                "currency": "AED",
+                "currency_decimals": 2,
+                "currency_position": "left",
+                "currency_symbol": "$",
+                "formatted_amount": "$1.00"
+            },
+            "trial": {
+                "local": {
+                    "amount": 90,
+                    "currency": "AED",
+                    "currency_decimals": 2,
+                    "currency_exchange_rate": 0.9,
+                    "currency_position": "left",
+                    "currency_symbol": "€",
+                    "formatted_amount": "€0.90",
+                    "formatted_amount_rounded": "€0.99"
+                },
+                "payment": {
+                    "amount": 100,
+                    "currency": "AED",
+                    "currency_decimals": 2,
+                    "currency_position": "left",
+                    "currency_symbol": "$",
+                    "formatted_amount": "$1.00"
+                }
+            }
+        }
+    }
+}
+```
+</Expandable>
+

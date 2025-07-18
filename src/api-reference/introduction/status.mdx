@@ -1,0 +1,31 @@
+---
+title: 'Status Codes'
+---
+
+Our API uses conventional HTTP response codes to indicate the success or failure of requests. Codes in the 2xx range indicate success, codes in the 4xx range indicate client errors, and codes in the 5xx range indicate server errors.
+
+The following table summarizes the HTTP response codes you may receive from the Rest API.
+
+| Status Code | Meaning | Description |
+|-------------|---------|-------------|
+| `200 OK` | Success | Request completed successfully |
+| `201 Created` | Created | Resource created successfully |
+| `400 Bad Request` | Invalid Request | The request contains invalid parameters or malformed data | Missing required fields, invalid data format |
+| `401 Unauthorized` | Authentication Failed | Invalid or missing API key | Incorrect API key, expired token, missing Authorization header |
+| `404 Not Found` | Resource Not Found | The requested resource doesn't exist | Invalid ID, deleted resource, incorrect endpoint |
+| `422 Unprocessable Entity` | Validation Error | Request data failed validation rules | Invalid email format, duplicate customer, business rule violations |
+| `429 Too Many Requests` | Rate Limited | Request rate limit exceeded | Too many requests in time window, check rate limit headers |
+| `500 Internal Server Error` | Server Error | An unexpected error occurred on our servers | Contact support if persistent |
+
+<Tip>
+**Implement Robust Error Handling**: Always check the response status code and handle errors gracefully in your application.
+</Tip>
+
+## Rate Limiting
+
+To ensure optimal performance for all users, our API implements rate limiting:
+
+- **Rate Limit**: 1000 requests per minute per API key
+- **Headers**: Check `X-RateLimit-Remaining` and `X-RateLimit-Reset` headers
+- **429 Response**: When rate limit is exceeded, you'll receive a `429 Too Many Requests` status
+

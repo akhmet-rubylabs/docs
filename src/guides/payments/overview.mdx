@@ -1,0 +1,95 @@
+---
+title: 'Overview'
+icon: 'book-open'
+description: 'This section introduces the key payment concepts within PayNext and sets the stage for implementation guides, error handling strategies, and webhook integrations.'
+---
+
+PayNext provides a secure and flexible foundation for managing payment operations at scale.
+
+Whether you are handling one-time purchases or recurring billing, PayNext streamlines payment processing, gateway integrations, and error recovery all through a consistent and developer-friendly API.
+
+---
+
+## Why a Reliable Payment System Matters
+
+In digital commerce, failed or delayed payments directly impact customer experience and revenue. PayNext is built to reduce friction and improve reliability across the full lifecycle of a transaction.
+
+**With PayNext, you benefit from:**
+
+- **Multi-provider support**: Easily integrate with different PSPs like Stripe via API
+- **Secure client sessions**: Keep payment data safe without handling sensitive details in your frontend
+- **Soft vs. hard decline logic**: Built-in retry strategies and decline classification
+- **Real-time events**: Stay in sync with every payment status through webhook notifications
+- **Recurring-ready architecture**: Subscription billing and dunning support included by design
+
+---
+
+## Core Payment Concepts in PayNext
+
+<Tip>
+Understanding these building blocks will help you implement and manage your payment flows effectively:
+</Tip>
+
+### Payment Methods
+
+Supported types include credit/debit cards and digital wallets (like PayPal). PayNext stores tokenized data securely and links payment methods to customers for future use. Each method can be used with any supported PSP and is tied to your selected merchant environment.
+
+### Payments
+
+Each payment object represents a specific financial transaction and includes properties such as:
+
+- Amount and currency
+- Customer reference
+- Payment method used
+- Status
+- Error codes or failure reasons (if any)
+
+<Note>
+Payments are created through API calls and each first payment linked to a client session.
+</Note>
+
+### Client Sessions
+
+A client session is required to initiate the first payment using any payment method via the SDK. It serves as a secure, short-lived connection between your backend and the PayNext SDK.
+
+**Client sessions enable:**
+
+- PCI-compliant handling of sensitive payment data
+- Seamless integration between your backend and the SDK
+- Support for both one-time and subscription-based flows
+
+<Check>
+Subsequent payments (e.g. renewals) are handled automatically without creating a new client session.
+</Check>
+
+### Payment Gateways
+
+PayNext supports pluggable integrations with third-party.
+
+You can configure which PSP to use per environment or currency, enabling fallback and geographic targeting.
+
+### Decline Management
+
+Every failed transaction in PayNext is categorized into:
+
+- **Soft Decline**: Temporary issue (like insufficient funds), may be retried automatically or manually
+- **Hard Decline**: Permanent failure (like stolen card), not retryable
+
+<Info>
+These classifications help you optimize retry logic, especially in subscription billing scenarios.
+</Info>
+
+For details, refer to [Decline Codes](./decline-codes).
+
+---
+
+## Summary
+
+PayNext's payment system is designed to be modular, API-first, and production-ready. Whether you are building a high-volume marketplace or a SaaS billing engine, our tools help you:
+
+- Accept payments reliably
+- Minimize failed transactions
+- Track payment performance
+- React in real-time via webhooks
+
+Continue to the next [Payment Processing](./payment-processing) section to learn how payments are created and processed end-to-end within PayNext.

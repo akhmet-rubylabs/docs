@@ -1,0 +1,263 @@
+---
+title: 'Quick Start'
+icon: 'play'
+description: 'To initiate a subscription for a customer, merchants follow a streamlined process that involves integrating PayNext SDK on the checkout page, adding payment processor in PayNext Dashboard and subscription initialization.'
+---
+
+---
+
+## Integrate PayNext SDK
+
+The simplest way to integrate Universal Checkout is with our drop-in UI. With just a few lines of code, you can display a fully in-context checkout UI with all your payment methods.
+
+### Before you start, make sure:
+
+- you are ready to [process a payment](../payments/payment-processing.mdx)
+- you have created [subscription plan](./subscription-plans.mdx)
+- Universal Checkout is properly [configured in the dashboard](https://primer.io/docs/payments/universal-checkout/configure-universal-checkout-without-code)
+
+---
+
+## [Create a client session](https://primer.io/docs/payments/universal-checkout/drop-in/get-started/web#create-a-client-session)
+
+A **client session** is the starting point for integrating payments at PayNext. You can attach any data associated with the `order` to your client session.
+
+Creating a client session provides you with a **client token**, a temporary key used to initialize the Universal Checkout.
+
+The information you include in the client session is used in the Dashboard:
+
+- to conditionally route payments with Workflows
+- to activate payment methods and other features in Universal Checkout
+
+### Generate an API key
+
+Requests to our API are authenticated using an API key in the `X-Api-Key` header. Create an API key by visiting the [developer page](https://sandbox-dashboard.primer.io/developers/apiKeys) of the Primer Dashboard.
+
+### [Make a client session request](https://primer.io/docs/payments/universal-checkout/drop-in/get-started/web#make-a-client-session-request)
+
+On your server, create a client session with **[URL to Post]**
+
+Make sure to pass at least the following data:
+
+| **Field**                  | **Description**                                                                                                                 |
+| :------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
+| `customer.email`           |                                                                                                                                 |
+| `customer.address.country` |                                                                                                                                 |
+| `customer.externald`       | Your reference for the payment.  Make sure to keep track of `customer.externalId`- you will later receive updates via Webhooks. |
+| `subscription.planId`      | Your `subscription.planId` that you created in PayNext dashboard.                                                               |
+
+<Info>
+  The body of a successful response contains a [clientToken](https://primer.io/docs/api/api-reference/client-session-api/create-client-side-token#response.body.clientToken) that you will use to initialize the Universal Checkout.
+</Info>
+
+Here is how the client session request to the Primer API should look like:
+
+<CodeGroup>
+
+```javascript Request
+{
+  "customer": {
+    "email": "test1242131400@test.com",
+    "address": {
+      "country": "US"
+    },
+    "externalId": "test1231231",
+    "metadata": {
+      "test3": "test3"
+    }
+  },
+  "plan": {
+    "planId": "fjej5j234j532jr23-534rhh2-5345435f"
+  },
+  "options": {
+    "currencyDetails": true
+  }
+}
+```
+
+
+```json Response
+{
+  "clientToken": "<THE_CLIENT_TOKEN>",
+  "clientTokenExpirationDate": "2021-08-12T16:14:08.578695",
+  "customer": {
+    "email": "test1242131400@test.com",
+    "address": {
+      "country": "US"
+    },
+    "externalId": "test1231231",
+    "metadata": {
+      "test3": "test3"
+    }
+  },
+  "plan": {
+    "planId": "fjej5j234j532jr23-534rhh2-5345435f",
+    "type": "recurrent",
+    "interval": "days",
+    "interval_count": 7,
+    "amount": 500,
+    "currency": "USD",
+    "trial": {
+      "amount": 100,
+      "currency": "USD",
+      "interval": "days",
+      "interval_count": 7
+    }
+  },
+  "currencyDetails": {
+    "plan": {
+      "payment": {
+        "amount": 500,
+        "currency": "USD",
+        "currencyDecimals": 2,
+        "currencySymbol": "$",
+        "currencyPosition": "left",
+        "formattedAmount": "$5.00"
+      },
+      "local": {
+        "amount": 100,
+        "currency": "EUR",
+        "currencyDecimals": 2,
+        "currencySymbol": "€",
+        "currencyPosition": "left",
+        "currencyExchangeRate": 0.9,
+        "formattedAmount": "€1.00",
+        "formattedAmountRounded": "€0.99"
+      },
+      "trial": {
+        "payment": {
+          "amount": 100,
+          "currency": "USD",
+          "currencyDecimals": 2,
+          "currencySymbol": "$",
+          "currencyPosition": "left",
+          "formattedAmount": "$1.00"
+        },
+        "local": {
+          "amount": 90,
+          "currency": "EUR",
+          "currencyDecimals": 2,
+          "currencySymbol": "€",
+          "currencyPosition": "left",
+          "currencyExchangeRate": 0.9,
+          "formattedAmount": "€0.90",
+          "formattedAmountRounded": "€0.99"
+        }
+      }
+    }
+  }
+}
+```
+
+</CodeGroup>
+
+---
+
+## Install the SDK
+
+```bash
+# With yarn
+yarn add @primer-io/checkout-web
+
+# With npm
+npm install --save @primer-io/checkout-web
+```
+
+The `Primer.min.js` will add the `Primer` object to the global scope:
+
+```typescript
+const { Primer } = window
+
+Primer.showUniversalCheckout(clientToken, {
+    /* Options */
+})
+```
+
+---
+
+## Initialize and Show Universal Checkout
+
+Use the generated client token on the client-side to show Universal Checkout by calling `Primer.showUniversalCheckout(clientToken, options)`. Make sure to pass a selector to your container in the options.
+
+```javascript
+const universalCheckout = await Primer.showUniversalCheckout(clientToken, {
+    // Specify the selector of the container element
+    container: '#checkout-container',
+
+    /**
+     * When the checkout flow has been completed, you'll receive
+     * the successful payment via `onCheckoutComplete`.
+     * Implement this callback to redirect the user to an order confirmation page.
+     */
+    onCheckoutComplete({ payment }) {
+        console.log('Checkout Complete!', payment)
+    },
+
+    /**
+     * When the checkout flow has been fail, you'll receive
+     * the error via `onCheckoutFail`
+     */
+    onCheckoutFail(error, { payment }, handler) {
+        console.log('Checkout Fail!', error, payment)
+    },
+})
+```
+
+When the user interacts with the checkout:
+
+- Update the client session
+- Create a payment (by default)
+
+---
+
+## Handle successful payments
+
+### Listen to callback
+
+On the client-side, listen to the `onCheckoutComplete` callback to be notified when the payment has been successfully completed. Use it to show an order confirmation screen.
+
+### Handle webhooks
+
+To receive updates about the status of your payments you’ll need to listen to webhooks. This is particularly useful for updating an order or any other data stored server-side.
+
+Head to the [Developers section](https://sandbox-dashboard.primer.io/developers) of the Primer Dashboard to setup and test a webhook for `PAYMENT.STATUS` event.
+
+If you are not yet ready to receive webhooks, you can use https://webhook.site to test your implementation.
+
+### Handle redirects
+
+Some payment methods require redirecting to another web page in order to capture payment details.
+
+Drop-in checkout automatically renders that web page in a popup window in order to maintain the current context.
+
+<Info>
+  **If the browser cannot open popup windows, the current window will be redirected instead.**
+
+  To ensure maximum compatibility, read the guide on [how to handle redirects](https://primer.io/docs/payment-methods/handle-redirects-and-deep-links).
+</Info>
+
+---
+
+## Handle failed payments
+
+Any errors, cancelled payment interactions or failed payments will trigger the `onCheckoutFail` callback.
+
+```javascript
+onCheckoutFail(error, { payment }, handler) {
+  // Notifies you that the checkout flow has failed and a payment could not be created
+  // This callback can also be used to display an error state within your own UI.
+
+  // ⚠️ `handler` is undefined if the SDK does not expect anything from you
+  if (!handler) {
+    return;
+  }
+
+  // ⚠️ If `handler` exists, you MUST call one of the functions of the handler
+
+  // Show a default error message
+  return handler.showErrorMessage();
+
+  // Show a custom error message
+  return handler.showErrorMessage('This is my custom error message');
+}
+```

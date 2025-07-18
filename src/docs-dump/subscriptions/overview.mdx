@@ -1,0 +1,89 @@
+---
+title: "Overview"
+description: "PayNext allows you to retain ownership of your subscribers' payment data and route subscription transactions to any processor of your choice. The subscription feature connects customers to your product or service and defines recurring payment frequency."
+---
+
+When setting up your subscription product, PayNext offers two configurations:
+
+- **Standard Subscription**\
+  Begins with immediate full billing. Configure your recurring price, currency, and billing cycle.\
+  **Example:** A digital newspaper charges \$9.99 monthly for immediate access to premium content.
+- **Paid Trial Option**\
+  Starts with a discounted initial payment followed by regular pricing. Set both the trial amount, currency, and details of recurring charges that apply after the trial.\
+  **Example:** A professional networking platform charges \$1 for a 7-day trial, then \$24.99 quarterly for continued membership.
+
+Each option provides different customer acquisition strategies while maintaining flexibility in your pricing structure.
+
+## Subscription Creation Flow
+
+- **Step 1:** A subscription is created upon successfully tokenizing payment method details.
+  - If payment method tokenization fails, the subscription will not be created
+  - However, you will still see the declined Payment details and Customer creation records in your PayNext dashboard
+- **Step 2:** Upon successful first payment:
+  - The subscription is created with either `active` or `trial` status
+    - Status determination depends on your PayNext SDK integration settings in your Checkout form, if you pass trial prorties defined in our SDK documentation, subscription will be created in `trial` status.
+
+      ```json
+      is_trial=true
+      trial_price=100
+      trial_period=7
+      ```
+    - If those properties are not passed, subscription will be created with `active` status.
+  - PayNext sends a `subscription.created` event to your configured webhook endpoints
+- **Step 3:** You provision access to your product
+
+**Verifying Payment Success**
+
+You can confirm whether the charge was successful by:
+
+- Setting up a webhook endpoint or another event destination to listen for the `subscription.started` event
+- Manually checking the subscription object for `subscription.status=active` or `trial`
+
+**Status Transitions**
+
+- When a trial period ends, the subscription automatically transitions to `active` and regular billing begins
+- If a payment fails during the subscription lifetime, it will enter a billing retry state
+- After all retry attempts are exhausted without success, the subscription status will change to `past_due`
+
+### Subscription Statuses
+
+| Status     | Description                                                                                                                                                                                                                                                                                                                         |
+| :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `trial`    | The subscription is currently in a trial period and you can safely provision your product for your customer. The subscription transitions automatically to active when a customer makes the first payment.                                                                                                                          |
+| `active`   | The subscription is in good standing. For past_due subscriptions, paying the latest due payment transitions the subscription to active.                                                                                                                                                                                             |
+| `past_due` | Payment on the latest recurrent payment was either Declined or Failed. The subscription stops creating new invoices. If the due payment is still unpaid after all attempted billing retries, subscription moves to canceled. To move the subscription to active, customer needs to pay the most recent invoice before its due date. |
+| `canceled` | The subscription was cancelled. During cancellation, automatic collection for all due payments is disabled. This is a terminal state that can't be updated.                                                                                                                                                                         |
+
+### Past Due Retries
+
+If the customer’s recurrent payment is Declined or Failed, the renewal fails and the user’s subscription enters a past_due state, where the PayNext attempts to collect payment for up to 30 days. This billing retry lowers the rate of involuntary churn and prevents the need to re-acquire subscribers if they churned. If the user is recovered within the 30 days, the new billing date is established on the date of recovery and subsequent renewal dates are based on this new billing date, as shown in the figure below.
+
+<img
+  src="/assets/images/Frame13272288715.svg"
+  alt="Frame13272288715 Sv"
+  title="Frame13272288715 Sv"
+  className="mx-auto"
+/>
+
+### **Recurring charges**
+
+PayNext handles recurring charges for you automatically. This includes:
+
+- Charging customers and attempting payments when new billing cycles start.
+- When payments fail, PayNext retries them using the billing retry feature or your custom retry schedule. This automatically re-attempts payment according to your Dashboard settings when cards are declined. If a failure returns a [hard decline code](https://docs.stripe.com/declines/codes), the scheduled retries continue but the payment executes only if you obtain a new payment method.
+
+## **Subscription events**
+
+[Events](https://docs.stripe.com/api#event_types) are triggered every time a subscription is created or changed. We send some events immediately when a subscription is created, while others recur on regular billing intervals. We recommend listening for events with [webhook endpoints](https://docs.stripe.com/billing/subscriptions/webhooks).
+
+Make sure that your integration properly handles the events. For example, you might want to email a customer if a payment fails or revoke a customer’s access when a subscription is cancelled.
+
+The following table describes the most common events related to subscriptions and, where applicable, suggests actions for handling the events.
+
+### Webhook Events
+
+| EVENT                           | DESCRIPTION                                                                                                                                                                                                                                                |
+| :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `customer.created`              | Sent when a Customer is successfully created.                                                                                                                                                                                                              |
+| `customer.subscription.created` | Sent when the subscription is created. The subscription status might be incomplete if customer authentication is required to complete the payment or if you set payment_behavior to default_incomplete. View subscription payment behaviour to learn more. |
+| `customer.subscription.updated` | Sent when a subscription starts or changes. For example, renewing a subscription, adding a coupon, applying a discount, adding an invoice item, and changing plans all trigger this event.                                                                 |

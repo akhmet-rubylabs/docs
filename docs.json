@@ -1,95 +1,203 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Documentation - PayNext",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#006FEE",
+    "light": "#2d88f1",
+    "dark": "#00489b"
   },
   "favicon": "/favicon.svg",
+  "contextual": {
+    "options": [
+      "copy",
+      "chatgpt",
+      "claude"
+    ]
+  },
+  "api": {
+    "examples": {
+      "languages": [
+        "curl",
+        "javascript",
+        "go",
+        "java",
+        "python",
+        "php"
+      ],
+      "defaults": "required"
+    }
+  },
   "navigation": {
-    "tabs": [
+    "dropdowns": [
       {
-        "tab": "Guides",
+        "dropdown": "Guides",
+        "icon": "map",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "Introduction",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "src/guides/introduction/core-concepts",
+              "src/guides/introduction/currencies"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Getting Started",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "src/guides/getting-started/overview",
+              "src/guides/getting-started/integration"
+            ]
+          },
+          {
+            "group": "Payments",
+            "pages": [
+              "src/guides/payments/overview",
+              "src/guides/payments/payment-processing",
+              "src/guides/payments/decline-codes",
+              "src/guides/payments/managing-payments",
+              "src/guides/payments/webhooks"
+            ]
+          },
+          {
+            "group": "Subscriptions",
+            "pages": [
+              "src/guides/subscriptions/overview",
+              "src/guides/subscriptions/quick-start",
+              "src/guides/subscriptions/plans",
+              "src/guides/subscriptions/managing-subscriptions"
+            ]
+          },
+          {
+            "group": "PayNext CRM",
+            "pages": [
+              "src/guides/paynext-crm/overview"
             ]
           }
         ]
       },
       {
-        "tab": "API Reference",
+        "dropdown": "Public API",
+        "icon": "code",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Introduction",
             "pages": [
-              "api-reference/introduction"
+              "src/api-reference/introduction/getting-started",
+              "src/api-reference/introduction/authentication",
+              "src/api-reference/introduction/status"
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "API Reference",
+            "openapi": {
+              "source": "/src/api-reference/openapi3.json",
+              "directory": "src/api-reference"
+            }
+          },
+          {
+            "group": "Objects",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "src/api-reference/objects/client-session/client-session",
+              "src/api-reference/objects/customer/customer",
+              "src/api-reference/objects/payments/payment",
+              "src/api-reference/objects/subscription/subscription",
+              "src/api-reference/objects/error/error"
+            ]
+          }
+        ]
+      },
+      {
+        "dropdown": "Webhooks",
+        "icon": "webhook",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "src/webhooks/introduction/getting-started",
+              "src/webhooks/introduction/event-types"
+            ]
+          },
+          {
+            "group": "Objects",
+            "pages": [
+              "src/webhooks/objects/payment/payment",
+              "src/webhooks/objects/subscription/subscription"
+            ]
+          }
+        ]
+      },
+      {
+        "dropdown": "SDK",
+        "icon": "brackets-square",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "src/sdk-reference/getting-started"
+            ]
+          },
+          {
+            "group": "Client SDKs",
+            "pages": [
+              {
+                "group": "React",
+                "pages": [
+                  "src/sdk-reference/react/overview",
+                  "src/sdk-reference/react/installation",
+                  "src/sdk-reference/react/client-token",
+                  "src/sdk-reference/react/advanced-usage",
+                  "src/sdk-reference/react/customization",
+                  {
+                    "group": "Checkout Style",
+                    "pages": [
+                      "src/sdk-reference/react/checkout-styles/overview",
+                      "src/sdk-reference/react/checkout-styles/input-style",
+                      "src/sdk-reference/react/checkout-styles/button-style"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "group": "API ",
+            "pages": [
+              "src/sdk-reference/common-objects",
+              "src/sdk-reference/constants"
+            ]
+          }
+        ]
+      },
+      {
+        "dropdown": "Changelog",
+        "icon": "scroll",
+        "groups": [
+          {
+            "group": "Information",
+            "pages": [
+              "src/information/changelog"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/assets/logo/light.svg",
+    "dark": "/assets/logo/dark.svg"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:help@paynext.com"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://paynext.com"
     }
   },
   "footer": {

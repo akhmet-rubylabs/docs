@@ -1,0 +1,63 @@
+---
+title: 'Core Concepts'
+icon: 'atom'
+description: 'This section provides a high-level overview of the key concepts that make up the PayNext platform, helping you understand how to structure, automate, and control your payment and subscription flows from day one.'
+---
+
+---
+
+## Key Building Blocks
+
+### 1. Payment Orchestration Engine
+
+At its core, PayNext allows you to create flexible, API-driven payment flows that support:
+
+- One-time payments
+- Recurring billing with trials
+- Retry logic (dunning) and error handling
+- Soft/hard decline mapping
+- Currency-based plan pricing
+
+<Info>
+Payments are processor-agnostic, meaning you can integrate with your preferred PSP and PayNext will normalize the response, error, and lifecycle logic on top.
+</Info>
+
+Each payment moves through a unified status lifecycle, including:
+
+- `PENDING` – Payment is awaiting the next step (e.g. callback, confirmation).
+- `AUTHORIZED` – Funds have been authorized but not yet settled.
+- `SETTLING` / `SETTLED` – Funds are in the process of being or have been successfully settled.
+- `FAILED` / `DECLINED` – Payment failed to process or was rejected by the processor.
+- `CANCELLED` – Payment was cancelled before completion.
+
+### 2. Subscription Management System
+
+PayNext comes with a powerful subscription engine built to support:
+
+- Multi-tiered plans (one-time and recurring)
+- Past-due management (dunning)
+- Full plan and billing logic defined per currency and region
+
+<Tip>
+Unlike rigid billing platforms, PayNext gives you full control over how subscriptions are created, updated, and cancelled with clean APIs and webhook support.
+</Tip>
+
+### 3. Built-in CRM
+
+PayNext is one of the few orchestration platforms with a native CRM layer, allowing you to:
+
+- View all customer details, payment history, and subscription status
+- Trigger actions or automations based on real-time data
+- Enrich and filter customer records across products, plans, and statuses
+
+<Check>
+This is particularly powerful for teams building internal dashboards or operational portals. No external CRM syncing required, everything lives inside PayNext.
+</Check>
+
+---
+
+## Designed for Modern Builders
+
+Whether you are a SaaS company managing trials, a platform launching in multiple regions, or a FinTech product needing full payment transparency, PayNext is built to be your payment OS.
+
+You will find in this documentation how each concept ties together, from subscriptions and payments to workflows, webhooks, and the CRM to help you ship faster with full control.

@@ -1,0 +1,46 @@
+---
+title: 'Managing Payments'
+icon: 'list-check'
+description: 'This section explains how PayNext centralizes payment records, provides a CRM module for payments, and offers a secure API for payment management.'
+---
+
+Effective payment management is key to maintaining operational clarity and resolving issues quickly.
+
+PayNext gives you full control over your payments through a combination of centralized records, CRM tooling, and secure APIs all designed to help you monitor, track, and troubleshoot transactions across your business.
+
+---
+
+## Centralized Payment Records
+
+At the core of PayNext's architecture is `payment`, centralized, source-of-truth ledger for all transaction activity. Every payment, regardless of outcome, is logged in detail for transparency, reconciliation, and analytics.
+
+**Each payment record includes:**
+
+- **Status**: `PENDING`, `AUTHORIZED`, `SETTLING`/`SETTLED`, `FAILED`/`DECLINED`, `CANCELLED`.
+- **Amount & Currency**: Total charged and the transaction currency.
+- **Payment Method**: Linked ID to stored card or PayPal method in the `payment_methods` table.
+- **Error Metadata**: For failed transactions, structured fields like `decline_type`, `decline_reason`, and `gateway_response` help categorize and analyze errors.
+- **Gateway Attributes**: Flexible JSON fields store provider-specific response data for advanced troubleshooting or compliance needs.
+- **and many more, check our [API Reference](/api-reference/introduction/getting-started)**
+
+<Note>
+This centralized approach ensures complete audit trails and enables sophisticated reporting across all payment channels.
+</Note>
+
+---
+
+## CRM Module for Payments
+
+PayNext's built-in CRM module provides an interface to explore, filter, and debug payments without touching the codebase. It's the operational hub for finance, support, and product teams.
+
+**Core features include:**
+
+### Payment Timeline
+
+Search and inspect each transaction: success, failure, retries, or refunds. Every entry includes timestamps, gateway logs, and customer metadata.
+
+<Tip>
+The payment timeline gives you complete visibility into the lifecycle of each transaction, making it easy to diagnose issues and provide customer support.
+</Tip>
+
+All payment data is automatically indexed and searchable, allowing for quick resolution of customer inquiries and operational issues.

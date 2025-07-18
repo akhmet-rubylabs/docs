@@ -1,0 +1,139 @@
+---
+title: 'Integration'
+icon: 'puzzle-piece'
+description: 'This guide will walk you through the essential steps to start accepting payments and managing subscriptions with PayNext.'
+---
+
+<Note>
+If you're new to PayNext, we recommend starting with the [Core Concepts](../introduction/core-concepts) section to understand how the platform is structured.
+</Note>
+
+---
+
+## Step 1. Connect your Payment Processor
+
+To process payments, you need to configure a payment provider (PSP) in your PayNext organization.
+
+### What is a Payment Provider?
+
+A payment provider (like Stripe) enables you to charge cards, wallets, or alternative methods. PayNext lets you connect to test and live payment providers via API.
+
+### Connect a Test PSP
+
+By default, your sandbox account includes access to a Test PSP that mimics real payment behavior (success, decline, refund).
+
+<Tip>
+You can also configure production PSPs as your go-live date approaches.
+</Tip>
+
+## Step 2. Generate Your API Key
+
+Every API request to PayNext requires a secure **API key**.
+
+**To generate it:**
+
+<Steps>
+<Step title={'Log into your PayNext Dashboard'}>
+Access your organization's dashboard with your admin credentials.
+</Step>
+
+<Step title={'Navigate to API Keys'}>
+Go to `Developers → API Keys`
+</Step>
+
+<Step title={'Create a new secret key'}>
+Generate a new API key for your integration.
+</Step>
+
+<Step title={'Use it in the Authorization header'}>
+Include the key in the `Authorization` header for all API requests.
+</Step>
+</Steps>
+
+<Warning>
+Never expose secret keys in frontend code.
+</Warning>
+
+## Step 3. Create a Plan
+
+Before accepting recurring payments, define your billing logic by creating subscription plans.
+
+From the dashboard, go to the Plans section and click Create a New Plan. You can configure:
+
+- **Plan Type**: Recurring or one-off
+- **Billing Period**: Set how often the customer is charged
+- **Renewal Pricing**: Set price and currency (supporting multiple currencies)
+- **Trial Period (optional)**: Offer a free trial before billing starts
+
+<Note>
+Each plan defines how and when your customers are charged these are later referenced in your API calls during checkout.
+</Note>
+
+## Step 4. Configure Webhooks
+
+Webhooks allow your system to stay in sync with payment or subscription events.
+
+PayNext supports different real-time notifications, you can check it under [Webhooks Guide](../../webhooks/introduction/getting-started).
+
+**To configure:**
+
+<Steps>
+<Step title={'Go to Developers → Webhooks'}>
+Navigate to the webhooks section in your dashboard.
+</Step>
+
+<Step title={'Add your server URL'}>
+Provide the endpoint URL where PayNext should send event notifications.
+</Step>
+</Steps>
+
+## Step 5. Run a Test Payment
+
+To simulate a full checkout flow, you must use the PayNext SDK integrated on your frontend.
+
+Every test payment follows these steps:
+
+<Steps>
+<Step title={'Create a client session from your backend using the API'}>
+Initialize a payment session with your desired parameters.
+</Step>
+
+<Step title={'Initialize the SDK on the frontend using the client session ID'}>
+Load the PayNext SDK with the session identifier.
+</Step>
+
+<Step title={'Complete the payment using a test card, wallet, or PayPal'}>
+Use test payment methods like `4242 4242 4242 4242` for a successful card transaction.
+
+<CodeGroup>
+```text Test Card Number
+4242 4242 4242 4242
+```
+
+```text Expected Result
+Successful transaction
+```
+</CodeGroup>
+</Step>
+</Steps>
+
+After completing the payment:
+
+- The payment status will update (`settling`, `settled`)
+- If tied to a subscription, the subscription status will reflect `trial` or `active`
+- You can view these updates directly within the CRM under the relevant customer profile
+
+<Check>
+Make sure your webhook endpoint receives the event notification for full confirmation.
+</Check>
+
+## Step 6. Monitor and Explore Payments
+
+You can track all payment activity in two ways:
+
+**Dashboard**: Access the "Payments" tab to browse and filter payments  
+**API**: Refer to our [Public API docs](../../api-reference/introduction/getting-started) for more details.
+
+---
+
+With these integration steps complete, you're ready to start processing real payments and managing customer subscriptions through PayNext.

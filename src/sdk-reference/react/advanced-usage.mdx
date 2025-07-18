@@ -1,0 +1,63 @@
+---
+title: 'Advanced Usage'
+---
+
+You can customize the form with:
+
+- Translations
+- Supported card types
+- Button styles
+- Locale & layout variants
+
+<Accordion title="CheckoutForm example">
+```tsx index.tsx
+import { CheckoutForm, CardType } from '@paynext/sdk'
+
+const customTranslates = {
+  card: {
+    pay: {
+      button: 'Start 7-Day Trial',
+    },
+  },
+}
+
+const supportedCardTypes = [
+  CardType.DinersClub,
+  CardType.DinersClub,
+  CardType.Discover,
+  CardType.JCB,
+  CardType.Mastercard,
+  CardType.Visa,
+  CardType.UnionPay,
+  CardType.Maestro,
+]
+
+const customStyles = {
+  card: {
+    button: {
+      styles: {
+        backgroundColor: '#0d766e!important',
+      },
+      className: 'bg-[#0d766e!important]',
+    }
+  }
+}
+
+function MyComponent() {
+  return (
+    <CheckoutForm
+      clientToken={'YOUR_CLIENT_TOKEN'}
+      supportedCardTypes={supportedCardTypes}
+      locale={'en'}
+      variant={'compact'}
+      translate={customTranslates}
+      styles={customStyles}
+      onCheckoutComplete={() => console.log('Success')}
+      onCheckoutFail={(error) => console.error(error)}
+    />
+  )
+}
+```
+</Accordion>
+
+<Note>Replace `"YOUR_CLIENT_TOKEN"` with a valid client token obtained from the PayNext billing platform.</Note>

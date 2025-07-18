@@ -1,0 +1,23 @@
+---
+title: 'Installation'
+---
+
+```bash
+npm install @paynext/sdk
+```
+
+The **CheckoutForm** component is the fastest way to embed PayNext's payment experience into your app.
+
+With just a few lines of code, you can offer secure card payments with customizable UI and real-time completion callbacks.
+
+### CheckoutForm example
+
+```tsx index.tsx
+import { CheckoutForm } from '@paynext/sdk'
+
+function MyCheckoutComponent() {
+  return <CheckoutForm clientToken={'YOUR_CLIENT_TOKEN'} />
+}
+```
+
+<Note>This drop-in component handles all the heavy lifting including card validation, error handling, and secure payment processing</Note>

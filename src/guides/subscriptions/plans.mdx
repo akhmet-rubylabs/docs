@@ -1,0 +1,117 @@
+---
+title: 'Plans'
+icon: 'notebook'
+description: 'Create and manage billing plans in PayNext. Define your pricing, billing intervals, trial logic, and localized currencies all in one interface.'
+---
+
+PayNext simplifies the process of building recurring or one-off pricing plans. Instead of building pricing logic into every product separately, developers and product teams can centralize plan configuration via dashboard and pass just the `planId` to generate subscriptions.
+
+---
+
+## Overview
+
+Plans in PayNext represent billable offerings such as a monthly subscription, a one-time service fee, or a trial-based product. 
+
+Each plan includes:
+
+- A unique`planId` (auto-generated).
+- Billing type (Recurring or One-time).
+- Billing interval (for recurring).
+- Trial period settings (optional).
+- Currency and country-based pricing rules.
+
+Once created, plans can be referenced in your checkout or API requests using just the`planId`. The system automatically resolves localized pricing and trial logic.
+
+---
+
+## When to Use This
+
+Use the **Plans** system when you want to:
+
+- Let non-developers configure pricing across products.
+- Avoid duplicating billing logic in multiple environments.
+- Manage currency rules and trial periods centrally.
+- Reduce the number of API calls needed to set up subscriptions.
+
+---
+
+## Types of Plans
+
+### Recurring Plans ("Recurring")
+
+Used for products or services billed on a regular schedule (monthly, yearly, etc.). 
+
+You can:
+
+- Set billing frequency (e.g., every 30 days).
+- Add a trial period (optional).
+- Localize pricing by country and currency.
+
+### One-Time Plans ("One-off")
+
+Used for one-off charges (e.g., setup fee, coaching session). 
+
+You can:
+
+- Set static pricing.
+- Localize prices by country and currency.
+- Skip interval and trial logic.
+
+---
+
+## How It Works
+
+### Step 1 – Plan Details
+
+| Field     | Description                                              |
+| :-------- | :------------------------------------------------------- |
+| Plan Type | Choose between **Recurring** or **One-time**             |
+| Plan Name | Internal identifier (e.g., "Pro Monthly", "US One-Time") |
+
+### Step 2 – Billing Frequency (Recurring Only)
+
+Define how often customers will be charged: 
+
+Every [ 30 ] [ Days | Months | Years ]
+
+<Info>
+  If a customer starts a plan on January 30, and the next month doesn't have that date (e.g. February), they will be charged on the last valid date (Feb 28 or 29).
+</Info>
+
+### Step 3 – Accepted Currencies
+
+Each plan must define at least one **default currency**. 
+
+You can then create localized overrides for specific countries.
+
+#### Example:
+
+| Country       | Currency | Amount |
+| :------------ | :------- | :----- |
+| Default (All) | EUR      | €100   |
+| Spain         | EUR      | €90    |
+| US            | USD      | \$100  |
+
+<Info>
+  When a country is assigned to a specific price rule, it’s excluded from the default pricing rule.
+</Info>
+
+### Step 4 – Trial Period (Optional)
+
+For recurring plans only.
+
+| Field          | Description                                                   |
+| :------------- | :------------------------------------------------------------ |
+| Trial Toggle   | Enable or disable trial support                               |
+| Trial Duration | Number of calendar days (e.g., 7)                             |
+| Trial Pricing  | Optional localized trial pricing (same logic as main pricing) |
+
+---
+
+## Integration via API
+
+Once the plan is created, you only need to pass the `planId` in your session or subscription request. For how plan data is used in session creation and rendering checkout logic, refer to the [Client Session documentation](https://docs.paynext.com/api-reference/client-session/create-a-new-client-session).
+
+<Tip>
+  To explore all available Plan-related API endpoints, visit the full [Plans API Reference](../../api-reference/plans/find-many-plans).
+</Tip>

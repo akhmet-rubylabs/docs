@@ -1,0 +1,54 @@
+---
+title: 'Client Token'
+---
+
+CehckoutForm component require **client token** for getting information about client transaction.
+
+Before use **CheckoutForm** you should retrieve **client token** by [client session request](/src/api-reference/client-session/create-a-client-session), keep response **id** as client token and use it for **CheckoutForm**
+
+<Accordion title="Retrieve Client Token">
+```tsx index.tsx
+import { CheckoutForm } from '@paynext/sdk'
+
+const transactionData = {
+  customer: {
+    address: {
+      country: 'US',
+    },
+    email: 'jane.doe@example.com',
+    external_id: 'cust_123456789',
+    metadata: {
+      key: 'value',
+    },
+  },
+  options: {
+    currency_details: true,
+  },
+  plan: {
+    id: 'd3f8be53-0600-45d1-8d64-bb1d2e6b0405',
+  },
+}
+
+function MyCheckoutComponent() {
+  const [clientToken, setClientToken] = useState('')
+
+  useEffect(() => {
+    fetch('https://api-dev.paynext.com/v1/api/client-session', {
+      method: 'POST',
+      body: JSON.stringify(transactionData),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'YOUR_SECRET_KEY',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setClientToken(data.id))
+      .catch(console.error)
+  }, [])
+
+  return clientToken ? <CheckoutForm clientToken={clientToken} /> : null
+}
+```
+</Accordion>
+
+<Note>Check guideline about how to get `"YOUR_SECRET_KEY"` [here](/src/api-reference/introduction/authentication)</Note>

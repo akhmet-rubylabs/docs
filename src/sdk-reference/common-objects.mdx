@@ -1,0 +1,242 @@
+---
+title: 'Common Objects'
+---
+
+This page describes the common objects and interfaces used throughout the PayNext SDK.
+
+## CardType
+
+Enumeration of supported card networks.
+
+<Accordion title="CardType enum">
+  ```ts
+  enum CardType {
+    Visa = 'visa',
+    Mastercard = 'mastercard',
+    AmericanExpress = 'american-express',
+    Discover = 'discover',
+    JCB = 'jcb',
+    DinersClub = 'diners-club',
+    UnionPay = 'unionpay',
+    Maestro = 'maestro',
+  }
+  ```
+</Accordion>
+
+## Locale
+
+Supported language locales for the checkout form interface.
+
+<Accordion title="Locale type">
+  ```ts
+  type Locale = 'ar' | 'en' | 'bg' | 'cs' | 'da' | 'de' | 'el' | 'es' | 'et' | 'fi' | 
+    'fil' | 'fr' | 'hr' | 'hu' | 'id' | 'it' | 'ja' | 'ko' | 'lt' | 'lv' | 'ms' | 
+    'ru' | 'mt' | 'nb' | 'nl' | 'pl' | 'pt' | 'ro' | 'sk' | 'sl' | 'sv' | 'th' | 
+    'tr' | 'vi' | 'zh'
+  ```
+
+  **Popular locales:**
+  - `en` - English
+  - `de` - German  
+  - `fr` - French
+  - `es` - Spanish
+  - `it` - Italian
+  - `pt` - Portuguese
+  - `ru` - Russian
+  - `ja` - Japanese
+  - `zh` - Chinese
+</Accordion>
+
+## CheckoutTranslate
+
+Translation interface for customizing checkout form text and messages.
+
+<Accordion title="CheckoutTranslate object">
+  ```ts
+  interface CheckoutTranslate {
+    card: {
+      title: string
+      number: {
+        label: string
+        error: {
+          required: string
+          invalid: string
+          incomplete: string
+          unsupported: string
+        }
+      }
+      expiry: {
+        label: string
+        placeholder: string
+        error: {
+          required: string
+          invalid: string
+          incomplete: string
+          expired: string
+        }
+      }
+      cvc: {
+        label: string
+        placeholder: string
+        error: {
+          required: string
+          incomplete: string
+          invalid: string
+        }
+      }
+      name: {
+        label: string
+        placeholder: string
+        error: {
+          required: string
+          invalid: string
+        }
+      }
+      pay: {
+        button: string
+      }
+      compact: {
+        button: string
+      }
+    }
+    status: {
+      success: string
+      error: string
+    }
+  }
+  ```
+</Accordion>
+
+<Accordion title="card object">
+  ```ts
+  card: {
+    title: string                    // "Payment Details"
+    number: CardNumberTranslate
+    expiry: ExpiryTranslate
+    cvc: CvcTranslate
+    name: NameTranslate
+    pay: {
+      button: string                 // "Pay Now"
+    }
+    compact: {
+      button: string                 // "Card"
+    }
+  }
+  ```
+
+  <Accordion title="CardNumberTranslate object">
+  ```ts
+  number: {
+    label: string                    // "Card Number"
+    error: {
+      required: string               // "Card number is required"
+      invalid: string                // "Card number is invalid"
+      incomplete: string             // "Card number is incomplete"
+      unsupported: string            // "Card type is not supported"
+    }
+  }
+  ```
+  </Accordion>
+
+  <Accordion title="ExpiryTranslate object">
+  ```ts
+  expiry: {
+    label: string                    // "Expiry Date"
+    placeholder: string              // "MM/YY"
+    error: {
+      required: string               // "Expiry date is required"
+      invalid: string                // "Expiry date is invalid"
+      incomplete: string             // "Expiry date is incomplete"
+      expired: string                // "Card has expired"
+    }
+  }
+  ```
+  </Accordion>
+
+  <Accordion title="CvcTranslate object">
+  ```ts
+  cvc: {
+    label: string                    // "CVC"
+    placeholder: string              // "123"
+    error: {
+      required: string               // "CVC is required"
+      incomplete: string             // "CVC is incomplete"
+      invalid: string                // "CVC is invalid"
+    }
+  }
+  ```
+  </Accordion>
+
+  <Accordion title="NameTranslate object">
+  ```ts
+  name: {
+    label: string                    // "Cardholder Name"
+    placeholder: string              // "Full name on card"
+    error: {
+      required: string               // "Cardholder name is required"
+      invalid: string                // "Cardholder name is invalid"
+    }
+  }
+  ```
+  </Accordion>
+
+  <Accordion title="status object">
+  ```ts
+  status: {
+    success: string                  // "Payment successful"
+    error: string                    // "Payment failed"
+  }
+  ```
+  </Accordion>
+</Accordion>
+
+## PayNextConfig
+
+Main configuration interface for the CheckoutForm component.
+
+<Accordion title="PayNextConfig object">
+  ```ts
+  interface PayNextConfig {
+    clientToken: string
+    supportedCardTypes?: CardType[]
+    variant?: 'default' | 'compact'
+    styles?: StylesConfig
+    translate?: DeepPartial<CheckoutTranslate>
+    locale?: Locale
+    onCheckoutComplete?: () => void
+    onCheckoutFail?: (error: Error) => void
+  }
+  ```
+
+  <ResponseField name="clientToken" type="string" required>
+    **Required.** Client token obtained from the PayNext billing platform.
+  </ResponseField>
+
+  <ResponseField name="supportedCardTypes" type="CardType[]" default="All card types">
+    Array of card types that should be accepted by the checkout form.
+  </ResponseField>
+
+  <ResponseField name="variant" type="'default' | 'compact'" default="default">
+    Controls the display mode of the checkout form.
+  </ResponseField>
+
+  <ResponseField name="styles" type="StylesConfig">
+    Custom styling configuration for checkout form elements.
+  </ResponseField>
+
+  <ResponseField name="translate" type="DeepPartial<CheckoutTranslate>">
+    Custom translations and messages for checkout form elements.
+  </ResponseField>
+
+  <ResponseField name="locale" type="Locale" default="en">
+    Language locale for the checkout form interface.
+  </ResponseField>
+
+  <ResponseField name="onCheckoutComplete" type="() => void">
+    Callback function executed when payment processing completes successfully.
+  </ResponseField>
+
+  <ResponseField name="onCheckoutFail" type="(error: Error) => void">
+    Callback function executed when payment processing fails.
+  </ResponseField>
+</Accordion>

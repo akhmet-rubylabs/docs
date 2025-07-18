@@ -1,0 +1,811 @@
+---
+title: "Payment"
+---
+
+## Attributes
+
+<ResponseField name="id" type="string">
+Unique identifier for the webhook event.
+
+Example: `"6a608b3e-26c2-4b1c-ba4e-f199c30b584c"`
+</ResponseField>
+
+<ResponseField name="object" type="enum<string>">
+Object type indicator.
+
+Available options: `event`
+
+Example: `"event"`
+</ResponseField>
+
+<ResponseField name="type" type="enum<string>">
+Type of the webhook event.
+
+Available options: `payment.created`, `payment.updated`, `refund.created`, `refund.updated`
+
+Example: `"payment.created"`
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+Timestamp when the event was created.
+
+Example: `"2025-06-18T10:15:30Z"`
+</ResponseField>
+
+<ResponseField name="data" type="object">
+Event data containing the payment object.
+
+<Expandable title="Data properties">
+<ResponseField name="object" type="object">
+The main object containing payment details.
+
+<Expandable title="Object properties">
+<ResponseField name="object" type="string">
+Object type indicator for the payment.
+
+Example: `"payment"`
+</ResponseField>
+
+<ResponseField name="payment" type="object">
+Complete payment information.
+
+<Expandable title="Payment properties">
+<ResponseField name="id" type="string">
+Unique identifier for the payment.
+
+Example: `"e8a1b2c3-d4f5-6789-abcd-ef0123456789"`
+</ResponseField>
+
+<ResponseField name="amount" type="integer">
+Payment amount in the specified currency.
+
+Example: `15000`
+</ResponseField>
+
+<ResponseField name="amount_usd" type="integer">
+Payment amount converted to USD.
+
+Example: `15000`
+</ResponseField>
+
+<ResponseField name="refunded_amount" type="integer">
+Amount that has been refunded.
+
+Example: `0`
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+Timestamp when the payment was created.
+
+Example: `"2025-05-25T14:30:00Z"`
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+Timestamp when the payment was last updated.
+
+Example: `"2025-05-26T10:15:00Z"`
+</ResponseField>
+
+<ResponseField name="currency_code" type="string">
+Currency code for the payment.
+
+Example: `"AED"`
+</ResponseField>
+
+<ResponseField name="payment_status" type="string">
+Current status of the payment.
+
+Example: `"PENDING"`
+</ResponseField>
+
+<ResponseField name="payment_type" type="string">
+Type of payment.
+
+Example: `"MIT"`
+</ResponseField>
+
+<ResponseField name="attributes" type="object">
+Custom attributes associated with the payment.
+
+<Expandable title="Attributes properties">
+<ResponseField name="{key}" type="string">
+Custom key-value pairs for storing additional payment attributes.
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="metadata" type="object">
+Custom metadata associated with the payment.
+
+<Expandable title="Metadata properties">
+<ResponseField name="{key}" type="string">
+Custom key-value pairs for storing additional payment data.
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="customer" type="object">
+Customer information associated with the payment.
+
+<Expandable title="Customer properties">
+<ResponseField name="id" type="string">
+Unique identifier for the customer.
+
+Example: `"d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123"`
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+Timestamp when the customer was created.
+
+Example: `"2025-05-26T14:00:00Z"`
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+Timestamp when the customer was last updated.
+
+Example: `"2025-05-26T15:00:00Z"`
+</ResponseField>
+
+<ResponseField name="external_id" type="string">
+External identifier for the customer.
+
+Example: `"ext_123456789"`
+</ResponseField>
+
+<ResponseField name="full_name" type="string">
+Full name of the customer.
+
+Example: `"Jane Doe"`
+</ResponseField>
+
+<ResponseField name="email" type="string">
+Email address of the customer.
+
+Example: `"jane.doe@example.com"`
+</ResponseField>
+
+<ResponseField name="phone" type="string">
+Phone number of the customer.
+
+Example: `"+14155550123"`
+</ResponseField>
+
+<ResponseField name="metadata" type="object">
+Customer metadata.
+
+<Expandable title="Customer metadata properties">
+<ResponseField name="{key}" type="string">
+Custom key-value pairs for customer data.
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="address" type="object">
+Customer address information.
+
+<Expandable title="Address properties">
+<ResponseField name="city" type="string">
+City.
+
+Example: `"San Francisco"`
+</ResponseField>
+
+<ResponseField name="country" type="string">
+Country code.
+
+Example: `"AD"`
+</ResponseField>
+
+<ResponseField name="line1" type="string">
+First line of the address.
+
+Example: `"123 Market Street"`
+</ResponseField>
+
+<ResponseField name="line2" type="string">
+Second line of the address.
+
+Example: `"Suite 400"`
+</ResponseField>
+
+<ResponseField name="postal_code" type="string">
+Postal code.
+
+Example: `"94105"`
+</ResponseField>
+
+<ResponseField name="state" type="string">
+State.
+
+Example: `"CA"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="error" type="object">
+Error details if payment failed.
+
+<Expandable title="Error properties">
+<ResponseField name="decline_type" type="string">
+Type of decline.
+
+Example: `"HARD_DECLINE"`
+</ResponseField>
+
+<ResponseField name="decline_reason" type="string">
+Reason for decline.
+
+Example: `"Decline reason"`
+</ResponseField>
+
+<ResponseField name="message" type="string">
+Error message.
+
+Example: `"Error message"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="payment_details" type="object">
+Transaction details related to payment.
+
+<Expandable title="Payment details properties">
+<ResponseField name="auth_code" type="string">
+Authorization code.
+
+Example: `"123456"`
+</ResponseField>
+
+<ResponseField name="network_payment_id" type="string">
+Network payment identifier.
+
+Example: `"119676610486528"`
+</ResponseField>
+
+<ResponseField name="stripe_payment_intent_id" type="string">
+Stripe payment intent ID.
+
+Example: `"pi_3RTk1nJVVBuowJOx139x01h1"`
+</ResponseField>
+
+<ResponseField name="paypal_order_id" type="string">
+PayPal order ID.
+
+Example: `"123456"`
+</ResponseField>
+
+<ResponseField name="paypal_capture_id" type="string">
+PayPal capture ID.
+
+Example: `"123456"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="payment_method" type="object">
+Payment method used for the transaction.
+
+<Expandable title="Payment method properties">
+<ResponseField name="id" type="string">
+Unique identifier for the payment method.
+
+Example: `"d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123"`
+</ResponseField>
+
+<ResponseField name="type" type="string">
+Type of payment method.
+
+Example: `"CARD"`
+</ResponseField>
+
+<ResponseField name="phone" type="string">
+Phone number associated with payment method.
+
+Example: `"+14155552671"`
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+Last update timestamp.
+
+Example: `"2025-05-26T15:00:00Z"`
+</ResponseField>
+
+<ResponseField name="billing_address" type="object">
+Billing address for the payment method.
+
+<Expandable title="Billing address properties">
+<ResponseField name="city" type="string">
+City.
+
+Example: `"San Francisco"`
+</ResponseField>
+
+<ResponseField name="country" type="string">
+Country code.
+
+Example: `"AD"`
+</ResponseField>
+
+<ResponseField name="line1" type="string">
+First line of the address.
+
+Example: `"123 Market Street"`
+</ResponseField>
+
+<ResponseField name="line2" type="string">
+Second line of the address.
+
+Example: `"Suite 400"`
+</ResponseField>
+
+<ResponseField name="postal_code" type="string">
+Postal code.
+
+Example: `"94105"`
+</ResponseField>
+
+<ResponseField name="state" type="string">
+State.
+
+Example: `"CA"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="card" type="object">
+Card payment method details.
+
+<Expandable title="Card properties">
+<ResponseField name="card_id" type="string">
+Unique card identifier.
+
+Example: `"evc_abc123xyz"`
+</ResponseField>
+
+<ResponseField name="first_six_digits" type="string">
+First six digits of the card.
+
+Example: `"411111"`
+</ResponseField>
+
+<ResponseField name="last_four_digits" type="string">
+Last four digits of the card.
+
+Example: `"1111"`
+</ResponseField>
+
+<ResponseField name="exp_month" type="integer">
+Expiration month.
+
+Example: `12`
+</ResponseField>
+
+<ResponseField name="exp_year" type="integer">
+Expiration year.
+
+Example: `2028`
+</ResponseField>
+
+<ResponseField name="card_brand" type="string">
+Card brand.
+
+Example: `"visa"`
+</ResponseField>
+
+<ResponseField name="number" type="string">
+Full card number.
+
+Example: `"4111111111111111"`
+</ResponseField>
+
+<ResponseField name="cvc" type="string">
+Card verification code.
+
+Example: `"123"`
+</ResponseField>
+
+<ResponseField name="funding" type="string">
+Funding source type.
+
+Example: `"debit"`
+</ResponseField>
+
+<ResponseField name="segment" type="string">
+Card segment.
+
+Example: `"consumer"`
+</ResponseField>
+
+<ResponseField name="country" type="string">
+Card country.
+
+Example: `"AD"`
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+Card currency.
+
+Example: `"AED"`
+</ResponseField>
+
+<ResponseField name="issuer" type="string">
+Card issuer.
+
+Example: `"Chase Bank"`
+</ResponseField>
+
+<ResponseField name="product_name" type="string">
+Card product name.
+
+Example: `"Chase Sapphire Preferred"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="apple_pay" type="object">
+Apple Pay payment method details.
+
+<Expandable title="Apple Pay properties">
+<ResponseField name="number" type="string">
+Token number.
+
+Example: `"12345678"`
+</ResponseField>
+
+<ResponseField name="expiry" type="object">
+Expiry information.
+
+<Expandable title="Expiry properties">
+<ResponseField name="month" type="string">
+Expiry month.
+
+Example: `"05"`
+</ResponseField>
+
+<ResponseField name="year" type="string">
+Expiry year.
+
+Example: `"26"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="token_service_provider" type="string">
+Token service provider.
+
+Example: `"provider"`
+</ResponseField>
+
+<ResponseField name="cryptogram" type="string">
+Cryptogram.
+
+Example: `"d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123"`
+</ResponseField>
+
+<ResponseField name="eci" type="string">
+ECI value.
+
+Example: `"5"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="google_pay" type="object">
+Google Pay payment method details.
+
+<Expandable title="Google Pay properties">
+<ResponseField name="number" type="string">
+Token number.
+
+Example: `"12345678"`
+</ResponseField>
+
+<ResponseField name="expiry" type="object">
+Expiry information.
+
+<Expandable title="Google Pay expiry properties">
+<ResponseField name="month" type="integer">
+Expiry month.
+
+Example: `5`
+</ResponseField>
+
+<ResponseField name="year" type="integer">
+Expiry year.
+
+Example: `26`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="token_service_provider" type="string">
+Token service provider.
+
+Example: `"provider"`
+</ResponseField>
+
+<ResponseField name="cryptogram" type="string">
+Cryptogram.
+
+Example: `"d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123"`
+</ResponseField>
+
+<ResponseField name="eci" type="string">
+ECI value.
+
+Example: `"5"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="paypal" type="object">
+PayPal payment method details.
+
+<Expandable title="PayPal properties">
+<ResponseField name="billing_agreement_id" type="string">
+Billing agreement ID.
+
+Example: `"d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123"`
+</ResponseField>
+
+<ResponseField name="payer_info" type="object">
+Payer information.
+
+<Expandable title="Payer info properties">
+<ResponseField name="email" type="string">
+Payer email.
+
+Example: `"example@email.com"`
+</ResponseField>
+
+<ResponseField name="first_name" type="string">
+Payer first name.
+
+Example: `"John"`
+</ResponseField>
+
+<ResponseField name="last_name" type="string">
+Payer last name.
+
+Example: `"Doe"`
+</ResponseField>
+
+<ResponseField name="payer_id" type="string">
+Payer ID.
+
+Example: `"1234567"`
+</ResponseField>
+
+<ResponseField name="tenant" type="string">
+Tenant.
+
+Example: `"Tenant"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="processor" type="object">
+Payment processor information.
+
+<Expandable title="Processor properties">
+<ResponseField name="id" type="string">
+Unique processor identifier.
+
+Example: `"a1b2c3d4-5678-90ab-cdef-1234567890ab"`
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+Processor creation timestamp.
+
+Example: `"2025-05-01T08:00:00Z"`
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+Processor update timestamp.
+
+Example: `"2025-05-26T14:45:00Z"`
+</ResponseField>
+
+<ResponseField name="name" type="string">
+Processor name.
+
+Example: `"Stripe"`
+</ResponseField>
+
+<ResponseField name="processor_type_id" type="string">
+Processor type identifier.
+
+Example: `"abcdef12-3456-7890-abcd-ef1234567890"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="subscription" type="object">
+Subscription information if payment is subscription-related.
+
+<Expandable title="Subscription properties">
+<ResponseField name="id" type="string">
+Unique subscription identifier.
+
+Example: `"123e4567-e89b-12d3-a456-426614174000"`
+</ResponseField>
+
+<ResponseField name="status" type="string">
+Subscription status.
+
+Example: `"none"`
+</ResponseField>
+
+<ResponseField name="next_billing_date" type="string">
+Next billing date.
+
+Example: `"2025-06-26T12:00:00Z"`
+</ResponseField>
+
+<ResponseField name="metadata" type="object">
+Subscription metadata.
+
+<Expandable title="Subscription metadata properties">
+<ResponseField name="{key}" type="string">
+Custom key-value pairs for subscription data.
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+## Payload structure
+
+<Expandable title="Payment Payload Example">
+The response structure for all payment-related requests follows a consistent format as shown below.
+
+```json
+{
+  "id": "6a608b3e-26c2-4b1c-ba4e-f199c30b584c",
+  "object": "event",
+  "type": "refund.created",
+  "created_at": "2025-06-18T10:15:30Z",
+  "data": {
+    "object": {
+      "object": "payment",
+      "payment": {
+        "id": "e8a1b2c3-d4f5-6789-abcd-ef0123456789",
+        "amount": 15000,
+        "amount_usd": 15000,
+        "attributes": {
+          "key": "value"
+        },
+        "created_at": "2025-05-25T14:30:00Z",
+        "updated_at": "2025-05-26T10:15:00Z",
+        "currency_code": "AED",
+        "customer": {
+          "id": "d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123",
+          "created_at": "2025-05-26T14:00:00Z",
+          "updated_at": "2025-05-26T15:00:00Z",
+          "address": {
+            "city": "San Francisco",
+            "country": "AD",
+            "line1": "123 Market Street",
+            "line2": "Suite 400",
+            "postal_code": "94105",
+            "state": "CA"
+          },
+          "email": "jane.doe@example.com",
+          "external_id": "ext_123456789",
+          "metadata": {
+            "key": "value"
+          },
+          "full_name": "Jane Doe",
+          "phone": "+14155550123"
+        },
+        "error": {
+          "decline_reason": "Decline reason",
+          "decline_type": "HARD_DECLINE",
+          "message": "Error message"
+        },
+        "metadata": {
+          "key": "value"
+        },
+        "payment_details": {
+          "auth_code": "123456",
+          "network_payment_id": "119676610486528",
+          "paypal_capture_id": "123456",
+          "paypal_order_id": "123456",
+          "stripe_payment_intent_id": "pi_3RTk1nJVVBuowJOx139x01h1"
+        },
+        "payment_method": {
+          "id": "d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123",
+          "apple_pay": {
+            "cryptogram": "d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123",
+            "eci": "5",
+            "expiry": {
+              "month": "05",
+              "year": "26"
+            },
+            "number": "12345678",
+            "token_service_provider": "provider"
+          },
+          "billing_address": {
+            "city": "San Francisco",
+            "country": "AD",
+            "line1": "123 Market Street",
+            "line2": "Suite 400",
+            "postal_code": "94105",
+            "state": "CA"
+          },
+          "card": {
+            "card_brand": "visa",
+            "card_id": "evc_abc123xyz",
+            "country": "AD",
+            "currency": "AED",
+            "cvc": "123",
+            "exp_month": 12,
+            "exp_year": 2028,
+            "first_six_digits": "411111",
+            "funding": "debit",
+            "issuer": "Chase Bank",
+            "last_four_digits": "1111",
+            "number": "4111111111111111",
+            "product_name": "Chase Sapphire Preferred",
+            "segment": "consumer"
+          },
+          "google_pay": {
+            "cryptogram": "d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123",
+            "eci": "5",
+            "expiry": {
+              "month": 5,
+              "year": 26
+            },
+            "number": "12345678",
+            "token_service_provider": "provider"
+          },
+          "paypal": {
+            "billing_agreement_id": "d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123",
+            "payer_info": {
+              "email": "example@email.com",
+              "first_name": "John",
+              "last_name": "Doe",
+              "payer_id": "1234567",
+              "tenant": "Tenant"
+            }
+          },
+          "phone": "+14155552671",
+          "type": "CARD",
+          "updated_at": "2025-05-26T15:00:00Z"
+        },
+        "payment_status": "PENDING",
+        "payment_type": "MIT",
+        "processor": {
+          "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+          "created_at": "2025-05-01T08:00:00Z",
+          "name": "Stripe",
+          "processor_type_id": "abcdef12-3456-7890-abcd-ef1234567890",
+          "updated_at": "2025-05-26T14:45:00Z"
+        },
+        "refunded_amount": 0,
+        "subscription": {
+          "id": "123e4567-e89b-12d3-a456-426614174000",
+          "metadata": {
+            "key": "value"
+          },
+          "next_billing_date": "2025-06-26T12:00:00Z",
+          "status": "none"
+        }
+      }
+    }
+  }
+}
+```
+</Expandable>

@@ -1,0 +1,108 @@
+---
+title: 'Overview'
+icon: 'book-open'
+description: 'In this section, you will be guided through a general overview of how to get started with integrating PayNext into your systems.'
+---
+
+Whether you're building a new product or improving an existing one, PayNext is built to simplify your payment and subscription infrastructure without locking you into rigid flows or specific processors.
+
+<Info>
+Our onboarding experience is designed to be simple, modular, and developer-friendly. This overview gives you the key steps and concepts you need to get up and running quickly.
+</Info>
+
+---
+
+## Key Steps to Get Started
+
+<Steps>
+<Step title={'Create Your PayNext Account'}>
+  Set up your organization and merchant account inside the PayNext dashboard. Define your business profile, choose your primary currency, and optionally link your first Payment Service Provider (PSP).
+</Step>
+
+<Step title={'Generate API Keys'}>
+From the dashboard, create your API keys to start sending secure requests. Use your secret keys only in backend environments and never expose them on the frontend.
+
+<Warning>
+Keep your API keys secure and never expose them in client-side code or public repositories.
+</Warning>
+</Step>
+
+<Step title={'Choose Your Integration Method'}>
+PayNext offers flexible integration paths:
+
+- **Direct API**
+- **SDKs**
+- **Pre-built UI components**
+
+Select the method that best fits your product's architecture and payment logic.
+</Step>
+
+<Step title={'Understand the Core Concepts'}>
+Before integrating, review the fundamentals of PayNext's data model:
+
+- **Organizations**: Your company and settings
+- **Users**: Logged-in admins who access the dashboard
+- **Customers**: Your end users (linked to payment methods and subscriptions)
+- **Payments**: One-time or recurring charges
+- **Plans**: Pricing structures for subscriptions
+- **Subscriptions**: Billing cycles tied to customers
+
+<Tip>
+Understanding these concepts will streamline your integration and data flow setup.
+</Tip>
+</Step>
+
+<Step title={'Configure Environments'}>
+Start with our sandbox mode to test all flows safely. When you are ready, switch to production mode to accept live payments and subscriptions.
+</Step>
+
+<Step title={'Configure Webhooks'}>
+Webhooks allow PayNext to notify your server automatically when important events happen such as payment status changes, refunds or similar. This ensures your system stays in sync without manual polling.
+
+**To set up a webhook:**
+
+1. Go to the Developers section in the PayNext dashboard.
+2. Open the Webhooks tab and click Add Webhook.
+3. Provide a name and the URL of your server endpoint that will handle incoming `POST` requests.
+
+<Check>
+Failed webhook attempts are retried automatically. Make sure your endpoint responds with a `2XX` status to acknowledge delivery.
+</Check>
+</Step>
+
+<Step title={'Configure Checkout Form'}>
+Use the **PayNext Dashboard** to customize your checkout form with the exact payment methods and display logic you need all without writing a single line of code.
+
+**Steps to configure:**
+
+1. **Enable Payment Methods**  
+   Toggle on options like PayPal, Apple Pay, Google Pay, or Card from the Checkout section. Enabled methods appear instantly in your form preview.
+
+2. **Set Display Rules (Optional)**  
+   Click on any payment method to access its settings. Use the Condition Builder to define when a method should be shown. You can conditionally display methods based on:  
+   Order country, Currency and amount, Metadata values passed in your session
+
+3. **Customize Method Order**  
+   Drag and drop payment methods in the left panel to control the order in which they appear to users.
+
+4. **Preview in Real Time**  
+   As you configure, view changes instantly in the live checkout form preview.
+
+5. **Save and Publish**  
+   Click Save to apply your configuration and make it available across your integrated checkout.
+
+<Note>
+This gives you full control over the payment experience adapting to different geographies, customer segments, or transaction types, all directly from your dashboard.
+</Note>
+</Step>
+
+<Step title={'Test Everything'}>
+Use test cards, client session logic, and webhook triggers to simulate real-world scenarios. Full error abstraction helps you distinguish between soft and hard declines [link].
+
+You can also use Stripe's test card [link] to trigger specific responses and edge cases during your testing phase.
+</Step>
+</Steps>
+
+---
+
+With these fundamentals in place, you will be well-equipped to begin integrating PayNext into your stack. Continue to the next [Integration](./integration) section to explore integration steps in more technical detail.

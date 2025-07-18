@@ -1,0 +1,131 @@
+---
+title: "Customize Universal Checkout"
+description: "Description of your new file."
+---
+
+This guide is designed to help you style our default Universal Checkout UI. 
+
+## Localization and languages
+
+### Set the locale
+
+Universal Checkout supports multiple languages out of the box, enabling you to adapt its UI to the relevant market.
+
+You can specify the language using the `locale` option. **If not provided, the locale is automatically derived from the browser (recommended):**
+
+```javascript
+const options = {
+    /* Other checkout options ... */
+
+    locale: 'fr-FR', // Renders Universal Checkout in French
+}
+```
+
+<Check>
+  Universal Checkout automatically falls back to English if the provided locale is not supported.
+</Check>
+
+### Supported Locales
+
+| Locale   | Language                        |
+| :------- | :------------------------------ |
+| `ar`     | Arabic                          |
+| `bg`     | Bulgarian (Bulgaria)            |
+| `cs`     | Czech (Czech Republic)          |
+| `da`     | Danish (Denmark)                |
+| `de`     | German (Germany)                |
+| `el`     | Greek (Greece)                  |
+| `en`     | English                         |
+| `en-GB`  | English (United Kingdom)        |
+| `es`     | Spanish (Spain)                 |
+| `es-419` | Spanish (Latin America)         |
+| `et`     | Estonian (Estonia)              |
+| `fi`     | Finnish (Finland)               |
+| `fil`    | Filipino (Philipines)           |
+| `fr`     | French (France)                 |
+| `fr-CA`  | French (Canada)                 |
+| `he`     | Hebrew (Israel)                 |
+| `hr`     | Croatian (Croatia)              |
+| `hu`     | Hungarian (Hungary)             |
+| `id`     | Indonesian (Indonesia)          |
+| `it`     | Italian (Italy)                 |
+| `ja`     | Japanese (Japan)                |
+| `ko`     | Korean (Korea)                  |
+| `lt`     | Lithuanian (Lithuania)          |
+| `lv`     | Latvian (Latvia)                |
+| `ms`     | Malay (Malaysia)                |
+| `mt`     | Maltese (Malta)                 |
+| `nb`     | Norwegian Bokmål                |
+| `nl`     | Dutch (Netherlands)             |
+| `pl`     | Polish (Poland)                 |
+| `pt-BR`  | Portuguese (Brazil)             |
+| `pt`     | Portuguese (Brazil)             |
+| `ro`     | Romanian (Romania)              |
+| `ru`     | Russian (Russia)                |
+| `sk`     | Slovak (Slovakia)               |
+| `sl`     | Slovenian (Slovenia)            |
+| `sv`     | Swedish (Sweden)                |
+| `th`     | Thai (Thailand)                 |
+| `tr`     | Turkish (Turkey)                |
+| `vi`     | Vietnamese (Vietnam)            |
+| `zh`     | Chinese Simplified (China)      |
+| `zh-HK`  | Chinese Traditional (Hong Kong) |
+| `zh-TW`  | Chinese Traditional (Taiwan)    |
+
+### Right-to-left
+
+Universal Checkout automatically switches to a right-to-left layout for the relevant languages. This is supported for `he` Hebrew (Israel) or `ar` Arabic, Checkout would automatically display right-to-left layout. 
+
+## Styling Universal Checkout
+
+<Info>
+  For styling Universal Checkout, do not use custom CSS. Rather pass the `style` object as a checkout option when calling `showUniversalCheckout`.
+</Info>
+
+You can use the general styling options to style specific UI elements such as form inputs, text labels and several other elements within Universal Checkout.
+
+```javascript
+const options = {
+    /* Other checkout options ... */
+
+    style: {
+        /* Style options */
+    },
+}
+```
+
+### Text Styling Options
+
+Text elements within Universal Checkout can be styled using the following interface:
+
+```javascript
+interface TextStyle {
+    color?: string
+    fontFamily?: string
+    fontWeight?: string
+    fontSize?: string
+    fontSmoothing?: string
+    lineHeight?: string
+    textTransform?: string
+    letterSpacing?: string
+}
+```
+
+## Block Styling Options
+
+Block elements within Universal Checkout can be styled using the following interface: 
+
+```javascript
+interface BlockStyle {
+    background?: string
+    borderRadius?: number | string
+    boxShadow?: string
+    borderStyle?: string
+    borderColor?: number | string
+    borderWidth?: number | string
+}
+```
+
+<Info>
+  Both of the above mentioned interfaces will be referred to regularly in this guide when covering the styling of specific UI elements.
+</Info>

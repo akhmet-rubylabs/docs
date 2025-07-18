@@ -1,0 +1,379 @@
+---
+title: "Subscription"
+---
+
+## Attributes
+
+<ResponseField name="id" type="string">
+Unique identifier for the subscription.
+
+Example: `"123e4567-e89b-12d3-a456-426614174000"`
+</ResponseField>
+
+<ResponseField name="status" type="string">
+Current status of the subscription.
+
+Example: `"none"`
+</ResponseField>
+
+<ResponseField name="next_billing_date" type="string">
+Next scheduled billing date for the subscription.
+
+Example: `"2025-06-26T12:00:00Z"`
+</ResponseField>
+
+<ResponseField name="metadata" type="object">
+Additional metadata associated with the subscription.
+
+<Expandable title="Subscription metadata properties">
+<ResponseField name="{key}" type="string">
+Custom key-value pairs for storing additional subscription data.
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="customer" type="object">
+Customer information associated with the subscription.
+
+<Expandable title="Customer properties">
+<ResponseField name="id" type="string">
+Unique identifier for the customer.
+
+Example: `"d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123"`
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+The date and time at which the customer was created in UTC format.
+
+Example: `"2025-05-26T14:00:00Z"`
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+The date and time of the last customer update in UTC format.
+
+Example: `"2025-05-26T15:00:00Z"`
+</ResponseField>
+
+<ResponseField name="external_id" type="string">
+External identifier from a third-party system.
+
+Example: `"ext_123456789"`
+</ResponseField>
+
+<ResponseField name="full_name" type="string">
+Full name of the customer.
+
+Example: `"Jane Doe"`
+</ResponseField>
+
+<ResponseField name="email" type="string">
+Email address of the customer.
+
+Example: `"jane.doe@example.com"`
+</ResponseField>
+
+<ResponseField name="phone" type="string">
+Customer's phone number.
+
+Example: `"+14155550123"`
+</ResponseField>
+
+<ResponseField name="metadata" type="object">
+Additional metadata as a JSON object.
+
+<Expandable title="Customer metadata properties">
+<ResponseField name="{key}" type="string">
+Custom key-value pairs for storing additional customer data.
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="address" type="object">
+Customer's address information.
+
+<Expandable title="Address properties">
+<ResponseField name="city" type="string">
+City.
+
+Example: `"San Francisco"`
+</ResponseField>
+
+<ResponseField name="country" type="string">
+Country.
+
+Example: `"AD"`
+</ResponseField>
+
+<ResponseField name="line1" type="string">
+Address line 1.
+
+Example: `"123 Market Street"`
+</ResponseField>
+
+<ResponseField name="line2" type="string">
+Address line 2.
+
+Example: `"Suite 400"`
+</ResponseField>
+
+<ResponseField name="postal_code" type="string">
+Postal code.
+
+Example: `"94105"`
+</ResponseField>
+
+<ResponseField name="state" type="string">
+State.
+
+Example: `"CA"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="plan" type="object">
+Subscription plan information.
+
+<Expandable title="Plan properties">
+<ResponseField name="id" type="string">
+Unique identifier for the plan.
+
+Example: `"1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"`
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+The date and time at which the plan was created in UTC format.
+
+Example: `"2025-05-26T10:00:00Z"`
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+The date and time of the last plan update in UTC format.
+
+Example: `"2025-05-27T10:00:00Z"`
+</ResponseField>
+
+<ResponseField name="name" type="string">
+Display name of the plan.
+
+Example: `"Pro Plan"`
+</ResponseField>
+
+<ResponseField name="type" type="string">
+Type of the plan.
+
+Example: `"recurring"`
+</ResponseField>
+
+<ResponseField name="interval" type="string">
+Type of the billing period.
+
+Example: `"days"`
+</ResponseField>
+
+<ResponseField name="interval_count" type="integer">
+Number of billing periods per cycle.
+
+Example: `1`
+</ResponseField>
+
+<ResponseField name="trial_interval" type="string">
+Type of trial period.
+
+Example: `"days"`
+</ResponseField>
+
+<ResponseField name="trial_interval_count" type="integer">
+Length of the trial period.
+
+Example: `14`
+</ResponseField>
+
+<ResponseField name="price" type="object">
+Plan pricing information.
+
+<Expandable title="Price properties">
+<ResponseField name="default" type="object">
+Default pricing information.
+
+<Expandable title="Default price properties">
+<ResponseField name="amount" type="integer">
+Price amount in minor units.
+
+Example: `1999`
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+3-letter currency code (ISO 4217).
+
+Example: `"AED"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="countries" type="array">
+Country-specific pricing information.
+
+<Expandable title="Country price properties">
+<ResponseField name="countries" type="string">
+Country code for specific pricing.
+
+Example: `"AD"`
+</ResponseField>
+
+<ResponseField name="price" type="object">
+Price information for the specific country.
+
+<Expandable title="Country-specific price properties">
+<ResponseField name="amount" type="integer">
+Price amount in minor units for the country.
+
+Example: `1999`
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+Currency code for the country.
+
+Example: `"AED"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="trial_price" type="object">
+Trial pricing information. Same structure as price.
+
+<Expandable title="Trial price properties">
+<ResponseField name="default" type="object">
+Default trial pricing information.
+
+<Expandable title="Default trial price properties">
+<ResponseField name="amount" type="integer">
+Trial price amount in minor units.
+
+Example: `1999`
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+3-letter currency code (ISO 4217).
+
+Example: `"AED"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="countries" type="array">
+Country-specific trial pricing information.
+
+<Expandable title="Country trial price properties">
+<ResponseField name="countries" type="string">
+Country code for specific trial pricing.
+
+Example: `"AD"`
+</ResponseField>
+
+<ResponseField name="price" type="object">
+Trial price information for the specific country.
+
+<Expandable title="Country-specific trial price properties">
+<ResponseField name="amount" type="integer">
+Trial price amount in minor units for the country.
+
+Example: `1999`
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+Currency code for the country.
+
+Example: `"AED"`
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+## Response structure
+
+<Expandable title="Subscription Response Example">
+The response structure for all subscription-related requests follows a consistent format as shown below.
+
+```json
+{
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "status": "none",
+    "next_billing_date": "2025-06-26T12:00:00Z",
+    "metadata": {
+        "key": "value"
+    },
+    "customer": {
+        "id": "d3b07384-d9a5-4d16-a5b1-3fa3d9b0b123",
+        "created_at": "2025-05-26T14:00:00Z",
+        "updated_at": "2025-05-26T15:00:00Z",
+        "address": {
+            "city": "San Francisco",
+            "country": "AD",
+            "line1": "123 Market Street",
+            "line2": "Suite 400",
+            "postal_code": "94105",
+            "state": "CA"
+        },
+        "email": "jane.doe@example.com",
+        "external_id": "ext_123456789",
+        "metadata": {
+            "key": "value"
+        },
+        "full_name": "Jane Doe",
+        "phone": "+14155550123"
+    },
+    "plan": {
+        "id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+        "created_at": "2025-05-26T10:00:00Z",
+        "updated_at": "2025-05-27T10:00:00Z",
+        "name": "Pro Plan",
+        "type": "recurring",
+        "interval": "days",
+        "interval_count": 1,
+        "trial_interval": "days",
+        "trial_interval_count": 14,
+        "price": {
+            "countries": [
+                {
+                    "countries": "AD",
+                    "price": {
+                        "amount": 1999,
+                        "currency": "AED"
+                    }
+                }
+            ],
+            "default": {
+                "amount": 1999,
+                "currency": "AED"
+            }
+        },
+        "trial_price": {
+            "countries": [
+                {
+                    "countries": "AD",
+                    "price": {
+                        "amount": 1999,
+                        "currency": "AED"
+                    }
+                }
+            ],
+            "default": {
+                "amount": 1999,
+                "currency": "AED"
+            }
+        }
+    }
+}
+```
+</Expandable>

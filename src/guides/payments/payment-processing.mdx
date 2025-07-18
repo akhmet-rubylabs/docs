@@ -1,0 +1,81 @@
+---
+title: 'Payment Processing'
+icon: 'gear'
+description: 'This section outlines the key steps involved in processing payments, how the status lifecycle works, and how PayNext handles retries for soft declines.'
+---
+
+PayNext enables secure and reliable processing of both one-time and recurring payments. Our system abstracts the complexity of integrating with payment gateways while giving you full control over customer billing logic, retry behavior, and payment tracking.
+
+---
+
+## Supported Payment Methods
+
+PayNext supports the following methods through direct or third-party integrations:
+
+- **Card Payments**: Credit/debit cards across major networks
+- **Google Pay & Apple Pay**: Tokenized digital wallet support
+- **PayPal**: For both one-time and recurring billing agreements
+
+<Note>
+Subscription plans are stored, and recurring logic is managed within PayNext—giving you full control over the entire billing experience.
+</Note>
+
+---
+
+## One-time vs. Recurring Payments
+
+### One-time Payments
+
+You can create one-time charges using the POST /payments endpoint. This is suitable for single transactions like upgrades or top-ups. If it's the first payment for a customer, it must be made using the SDK and a client session.
+
+<Tip>
+For subsequent charges, you can call the API directly using the existing customer and plan, without needing a client session.
+</Tip>
+
+### Recurring Payments
+
+For subscriptions, PayNext stores the billing plan and manages the schedule internally. Each billing cycle triggers an automatic charge using the saved payment method.
+
+---
+
+## Payment Lifecycle
+
+Every payment goes through a lifecycle of states:
+
+<img 
+  src={'/assets/images/payment-lifecycle.png'} 
+  alt={'Payment Lifecycle'}
+  title={'Payment Lifecycle'}
+  className={'rounded-2xl'} 
+  height={200}
+/>
+
+<Check>
+Each transition is logged with a timestamp and metadata (like PSP response, customer ID, retry attempt) for full observability.
+</Check>
+
+---
+
+## Retry Logic
+
+If a payment fails, PayNext distinguishes between:
+
+- **Soft Declines**: Temporary issues (e.g. insufficient funds, network timeout). These are automatically retried based on retry rules (e.g. delay, max attempts).
+- **Hard Declines**: Permanent issues (e.g. stolen card, closed account). These are not retried.
+
+<Info>
+Refer to the [Decline Codes](./decline-codes) section for more detail.
+</Info>
+
+---
+
+## Summary
+
+PayNext abstracts the heavy lifting of payment processing while giving you control over logic, retries, and state tracking. Whether you are charging customers once or on a recurring schedule, PayNext ensures:
+
+- Seamless PSP integration
+- Clear status visibility
+- Retry support for soft declines
+- Real-time state sync via webhooks
+
+Continue to the next [Decline Handling](./decline-handling) section to learn more about decline handling and error recovery strategies.

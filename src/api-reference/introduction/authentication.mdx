@@ -1,0 +1,39 @@
+---
+title: 'Authorization'
+---
+
+All API requests require authentication using your organization's API key. The API uses <code>api key</code> authentication to ensure secure access to your billing data.
+
+## Generating Your API Key
+
+1. Navigate to your [organization dashboard](https://dev.paynext.com/dashboard/developers)
+2. Click **"New API Key"**
+3. Copy your API key securely - it won't be shown again
+4. Store it in a secure environment variable
+
+<Warning>
+  **Keep Your API Key Secure**: Never expose your API key in client-side code or public repositories. Always use environment variables and server-side implementations.
+</Warning>
+
+## API Key Types
+
+#### Organization API Key
+
+- **Purpose**: Primary authentication for all billing operations
+- **Scope**: Full access to client-session, payments, subscriptions and customers
+- **Usage**: Server-side applications and secure environments
+- **Security Level**: Private - never expose publicly
+
+#### Authentication Header Format
+
+Include your API key in the Authorization header of every request:
+
+```bash
+Authorization: YOUR_API_KEY_HERE
+```
+
+```bash
+curl -X POST 'https://api-dev.paynext.com/v1/api/<ENDPOINT>' \
+  --header 'Authentication: <YOUR_API_KEY_HERE>' \
+  --header 'Content-Type: application/json'
+```

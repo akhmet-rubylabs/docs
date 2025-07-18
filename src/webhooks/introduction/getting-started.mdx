@@ -1,0 +1,65 @@
+---
+title: "Getting Started"
+---
+
+Welcome to **PayNext Webhooks** - your comprehensive solution for receiving real-time notifications about important events in the system, such as payment updates or subscription changes.
+
+## Quick Start
+
+Set up an event destination to receive real-time events through an HTTPS webhook URL. Once your webhook endpoint is registered, our system will automatically send event notifications to it whenever relevant actions occur in your account. This allows your application to react to updates—like payments, subscriptions, or refund—as they happen.
+
+#### Setup Your Webhook Integration
+
+<Steps>
+  <Step title="Create Webhook Endpoint">
+    <Expandable title="Implementation steps">
+      - Create a new endpoint in your application at `/webhooks/paynext`
+      - Configure POST method to handle incoming requests
+      - Extract event data from request body
+      - Process events based on type (payment, subscription)
+      - Always respond with 200 status code for successful processing
+
+      ```javascript
+      app.post('/webhooks/paynext', (req, res) => {
+        const { event, object, type, data } = req.body;
+
+        switch(event) {
+          case 'payment.created':
+            // Do something
+            break;
+          case 'subscription.created':
+            // Do something
+            break;
+        }
+
+        res.status(200).send('OK');
+      });
+      ```
+    </Expandable>
+
+  </Step>
+
+  <Step title="Register Webhook in Dashboard">
+    <Expandable title="Registration steps">
+      1. Navigate to your [organization dashboard](https://dev.paynext.com/dashboard/developers)
+      2. Go to **"Webhooks"** section in settings
+      3. Click **"Add webhook"**
+      4. Fill required fields
+      5. Set status to **"Active"** to enable webhook
+      6. **"Save"** webhook configuration
+
+      <Warning>
+        **Important!** Set status to ACTIVE - INACTIVE webhooks will be ignored.
+      </Warning>
+    </Expandable>
+
+  </Step>
+
+</Steps>
+
+#### Next Steps
+
+- Test your webhook integration with sample events
+- Monitor webhook delivery in PayNext dashboard
+- Set up error handling and retry logic
+- Configure webhook event filtering based on your needs

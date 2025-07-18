@@ -1,0 +1,103 @@
+---
+title: 'Managing Subscriptions'
+icon: 'list-check'
+description: 'PayNext makes it easy to manage subscription lifecycles from trial to activation, billing, and cancellation, all via the CRM module or API.'
+---
+
+Whether you are operating a SaaS, membership service, or billing automation, our system keeps subscription data centralized and up-to-date.
+
+---
+
+## Subscription Statuses
+
+Every subscription in PayNext goes through a clear lifecycle. These states are surfaced visually in the Customers page (as shown in the CRM UI), and updated in real time by the backend scheduler.
+
+**The possible statuses include:**
+
+| Status | Description |
+|---|---|
+| **Trial** | The user is in a free trial period. No charges have been made. |
+| **Active** | The subscription is live, and recurring billing is enabled. |
+| **Past Due** | A payment attempt failed. The system is retrying the charge. |
+| **Scheduled for Cancellation** | A cancellation is queued for the end of the billing period. |
+| **Cancelled** | The subscription is terminated and no longer billed. |
+
+<Note>
+These statuses appear directly in the Customers tab for each subscription instance.
+</Note>
+
+---
+
+## Creating & Managing Subscriptions
+
+### Activating a Subscription
+
+You can create subscriptions:
+
+- Via the SDK by providing a `plan` when creating a client session (used during the first payment)
+- Via API using `POST /subscriptions` for users who have already completed their first payment
+
+<Check>
+Each subscription is tied to a customer and a plan.
+</Check>
+
+### Handling Trials
+
+If the selected plan includes a trial, the subscription enters `trial` state upon creation.
+
+### Upgrades & Downgrades
+
+To change a customer's plan:
+
+- Use the "Change Plan" action in the CRM dashboard.
+- For API-based updates, refer to our API documentation [link].
+
+<Note>
+The system keeps the original billing dates and applies the new plan pricing in the next billing cycle.
+</Note>
+
+### Handling Cancellations
+
+Currently, subscriptions can only be canceled immediately.
+
+You can cancel a subscription:
+
+- Via the **CRM dashboard** using the **"Cancel"** action
+- Through the API using the `POST /subscriptions/cancel/{id}` endpoint
+
+---
+
+## Dunning & Retry Logic
+
+If a recurring payment fails, PayNext triggers **automated retries** via its Scheduler service:
+
+1. **Soft Decline** → Retry in XY days (configurable)
+2. **Hard Decline / Card Expired** → Retry skipped, alert shown for the first payment
+3. If retries fail → Subscription status moves to `past_due`, then `cancelled` after final attempt
+
+<Info>
+This ensures revenue recovery while minimizing manual intervention.
+</Info>
+
+---
+
+## CRM Controls for Subscriptions
+
+The CRM interface (see Customers screen) lets your team:
+
+- View all customer subscriptions in one place
+- See current plan, price, status, and billing day
+- Filter by status (Trial, Active, Past Due, etc.)
+- Open individual records for deeper billing history or edits
+
+<Check>
+The CRM provides complete visibility into subscription operations without requiring technical intervention.
+</Check>
+
+---
+
+## API Endpoints for Subscription Management
+
+Refer to our [Public API documentation](../../api-reference/introduction/getting-started).
+
+With these tools, you can build sophisticated subscription businesses while maintaining full control over billing logic, customer communications, and revenue recovery strategies.

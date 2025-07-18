@@ -1,0 +1,66 @@
+---
+title: 'Styles Config'
+---
+
+The interface that defines the styles available for customizing the appearance of the checkout.
+
+<Accordion title="StylesConfig object">
+```ts
+interface StylesConfig {
+  card?: {
+    input?: InputStyles
+    button?: {
+      styles?: CSSProperties
+      className?: string
+      icon?: ReactNode
+    }
+  }
+}
+```
+
+<Accordion title="InputStyles object">
+```ts
+interface InputStyles {
+  field?: {
+    styles?: CSSProperties
+    className?: string
+  }
+  label?: {
+    styles?: CSSProperties
+    className?: string
+  }
+  error?: {
+    styles?: CSSProperties
+    className?: string
+  }
+  container?: {
+    styles?: CSSProperties
+    className?: string
+    focus?: string
+  }
+}
+```
+</Accordion>
+
+**Example:**
+```tsx
+const styles = {
+  card: {
+    input: {
+      field: {
+        styles: { borderRadius: '8px', border: '2px solid #e2e8f0' },
+        className: 'focus:border-blue-500'
+      },
+      label: {
+        styles: { fontWeight: '600', color: '#374151' }
+      }
+    },
+    button: {
+      styles: { backgroundColor: '#0d766e' },
+      className: 'hover:bg-green-700 transition-colors',
+      icon: <CreditCardIcon />
+    }
+  }
+}
+```
+</Accordion>
