@@ -1,6 +1,6 @@
 ---
-title: 'Overview'
-icon: 'book-open'
+title: "Overview"
+icon: "book-open"
 description: "PayNext allows you to retain ownership of your subscribers' payment data and route subscription transactions to any processor of your choice. The subscription feature connects customers to your product or service and defines recurring payment frequency."
 ---
 
@@ -62,10 +62,10 @@ You can confirm whether the charge was successful by:
 If the customer’s recurrent payment is Declined or Failed, the renewal fails and the user’s subscription enters a past_due state, where the PayNext attempts to collect payment for up to 30 days. This billing retry lowers the rate of involuntary churn and prevents the need to re-acquire subscribers if they churned. If the user is recovered within the 30 days, the new billing date is established on the date of recovery and subsequent renewal dates are based on this new billing date, as shown in the figure below.
 
 <img
-  src={'/assets/images/Frame13272288715.svg'}
-  alt={'Past Due Retries'}
-  title={'Past Due Retries'}
-  className={'w-full rounded-2xl'}
+  src="/assets/images/Frame13272288715.svg"
+  alt="Past Due Retries"
+  title="Past Due Retries"
+  className="w-full rounded-2xl"
 />
 
 ### Recurring charges
@@ -79,7 +79,7 @@ PayNext handles recurring charges for you automatically. This includes:
 
 ## Subscription events
 
-[Events](https://docs.stripe.com/api#event_types) are triggered every time a subscription is created or changed. We send some events immediately when a subscription is created, while others recur on regular billing intervals. We recommend listening for events with [webhook endpoints](https://docs.stripe.com/billing/subscriptions/webhooks).
+[Events](../../webhooks/introduction/event-types) are triggered every time a subscription is created or changed. We send some events immediately when a subscription is created, while others recur on regular billing intervals. We recommend listening for events with [webhook endpoints](https://docs.stripe.com/billing/subscriptions/webhooks).
 
 Make sure that your integration properly handles the events. For example, you might want to email a customer if a payment fails or revoke a customer’s access when a subscription is cancelled.
 

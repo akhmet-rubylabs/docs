@@ -1,7 +1,7 @@
 ---
-title: 'Integration'
-icon: 'puzzle-piece'
-description: 'This guide will walk you through the essential steps to start accepting payments and managing subscriptions with PayNext.'
+title: "Integration"
+icon: "puzzle-piece"
+description: "This guide will walk you through the essential steps to start accepting payments and managing subscriptions with PayNext."
 ---
 
 <Note>
@@ -33,19 +33,19 @@ Every API request to PayNext requires a secure **API key**.
 **To generate it:**
 
 <Steps>
-<Step title={'Log into your PayNext Dashboard'}>
+<Step title="Log into your PayNext Dashboard">
 Access your organization's dashboard with your admin credentials.
 </Step>
 
-<Step title={'Navigate to API Keys'}>
+<Step title="Navigate to API Keys">
 Go to `Developers → API Keys`
 </Step>
 
-<Step title={'Create a new secret key'}>
+<Step title="Create a new secret key">
 Generate a new API key for your integration.
 </Step>
 
-<Step title={'Use it in the Authorization header'}>
+<Step title="Use it in the Authorization header">
 Include the key in the `Authorization` header for all API requests.
 </Step>
 </Steps>
@@ -78,11 +78,11 @@ PayNext supports different real-time notifications, you can check it under [Webh
 **To configure:**
 
 <Steps>
-<Step title={'Go to Developers → Webhooks'}>
+<Step title="Go to Developers → Webhooks">
 Navigate to the webhooks section in your dashboard.
 </Step>
 
-<Step title={'Add your server URL'}>
+<Step title="Add your server URL">
 Provide the endpoint URL where PayNext should send event notifications.
 </Step>
 </Steps>
@@ -94,15 +94,15 @@ To simulate a full checkout flow, you must use the PayNext SDK integrated on you
 Every test payment follows these steps:
 
 <Steps>
-<Step title={'Create a client session from your backend using the API'}>
+<Step title="Create a client session from your backend using the API">
 Initialize a payment session with your desired parameters.
 </Step>
 
-<Step title={'Initialize the SDK on the frontend using the client session ID'}>
+<Step title="Initialize the SDK on the frontend using the client session ID">
 Load the PayNext SDK with the session identifier.
 </Step>
 
-<Step title={'Complete the payment using a test card, wallet, or PayPal'}>
+<Step title="Complete the payment using a test card, wallet, or PayPal">
 Use test payment methods like `4242 4242 4242 4242` for a successful card transaction.
 
 <CodeGroup>

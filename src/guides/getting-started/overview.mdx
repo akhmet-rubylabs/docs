@@ -1,7 +1,7 @@
 ---
-title: 'Overview'
-icon: 'book-open'
-description: 'In this section, you will be guided through a general overview of how to get started with integrating PayNext into your systems.'
+title: "Overview"
+icon: "book-open"
+description: "In this section, you will be guided through a general overview of how to get started with integrating PayNext into your systems."
 ---
 
 Whether you're building a new product or improving an existing one, PayNext is built to simplify your payment and subscription infrastructure without locking you into rigid flows or specific processors.
@@ -15,11 +15,11 @@ Our onboarding experience is designed to be simple, modular, and developer-frien
 ## Key Steps to Get Started
 
 <Steps>
-<Step title={'Create Your PayNext Account'}>
+<Step title="Create Your PayNext Account">
   Set up your organization and merchant account inside the PayNext dashboard. Define your business profile, choose your primary currency, and optionally link your first Payment Service Provider (PSP).
 </Step>
 
-<Step title={'Generate API Keys'}>
+<Step title="Generate API Keys">
 From the dashboard, create your API keys to start sending secure requests. Use your secret keys only in backend environments and never expose them on the frontend.
 
 <Warning>
@@ -27,7 +27,7 @@ Keep your API keys secure and never expose them in client-side code or public re
 </Warning>
 </Step>
 
-<Step title={'Choose Your Integration Method'}>
+<Step title="Choose Your Integration Method">
 PayNext offers flexible integration paths:
 
 - **Direct API**
@@ -37,7 +37,7 @@ PayNext offers flexible integration paths:
 Select the method that best fits your product's architecture and payment logic.
 </Step>
 
-<Step title={'Understand the Core Concepts'}>
+<Step title="Understand the Core Concepts">
 Before integrating, review the fundamentals of PayNext's data model:
 
 - **Organizations**: Your company and settings
@@ -52,11 +52,11 @@ Understanding these concepts will streamline your integration and data flow setu
 </Tip>
 </Step>
 
-<Step title={'Configure Environments'}>
+<Step title="Configure Environments">
 Start with our sandbox mode to test all flows safely. When you are ready, switch to production mode to accept live payments and subscriptions.
 </Step>
 
-<Step title={'Configure Webhooks'}>
+<Step title="Configure Webhooks">
 Webhooks allow PayNext to notify your server automatically when important events happen such as payment status changes, refunds or similar. This ensures your system stays in sync without manual polling.
 
 **To set up a webhook:**
@@ -70,7 +70,7 @@ Failed webhook attempts are retried automatically. Make sure your endpoint respo
 </Check>
 </Step>
 
-<Step title={'Configure Checkout Form'}>
+<Step title="Configure Checkout Form">
 Use the **PayNext Dashboard** to customize your checkout form with the exact payment methods and display logic you need all without writing a single line of code.
 
 **Steps to configure:**
@@ -96,7 +96,7 @@ This gives you full control over the payment experience adapting to different ge
 </Note>
 </Step>
 
-<Step title={'Test Everything'}>
+<Step title="Test Everything">
 Use test cards, client session logic, and webhook triggers to simulate real-world scenarios. Full error abstraction helps you distinguish between soft and hard declines [link].
 
 You can also use Stripe's test card [link] to trigger specific responses and edge cases during your testing phase.
