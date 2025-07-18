@@ -1,71 +1,79 @@
 ---
-title: Introduction
-description: "Welcome to the home of your new documentation"
+title: 'Overview'
+icon: 'book-open'
+description: 'Welcome to the official product documentation for PayNext, your all-in-one platform for managing payments, subscriptions, and customer relationships with precision and control.'
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.png"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.png"
-  alt="Hero Dark"
-/>
+<img className={'rounded-2xl'} src={'/assets/images/og-image.png'} alt={'PayNext'}/>
 
-## Setting up
+This guide is your entry point into understanding how PayNext works, what it enables, and how to seamlessly integrate it into your systems.
 
-The first step to world-class documentation is setting up your editing environments.
+<Note>
+Inspired by the industry standards, we focus on delivering clarity, depth, and actionable integration guidance.
+</Note>
 
-<CardGroup cols={2}>
-  <Card
-    title="Edit Your Docs"
-    icon="pen-to-square"
-    href="https://mintlify.com/docs/quickstart"
-  >
-    Get your docs set up locally for easy development
-  </Card>
-  <Card
-    title="Preview Changes"
-    icon="image"
-    href="https://mintlify.com/docs/development"
-  >
-    Preview your changes before you push to make sure they're perfect
-  </Card>
+---
+
+## What is PayNext?
+
+PayNext is a modular payment orchestration platform built for businesses that want to streamline and control the entire payment lifecycle. From one-time payments to complex subscription logic and real-time customer automation.
+
+PayNext connects your frontend to multiple payment processors while giving you powerful tools to manage:
+
+- One-time and recurring payments
+- Subscription plans, trials, and dunning
+- CRM-driven customer logic
+- Payment error handling and decline routing
+- Automation via webhooks and event scheduling
+
+<Tip>
+It is designed to scale with your business needs, whether you are launching a SaaS product, managing multi-currency billing, or optimizing for global markets.
+</Tip>
+
+---
+
+## Who is it for?
+
+PayNext is built for modern digital businesses, including:
+
+- **SaaS platforms** offering subscriptions or pay-as-you-go models
+- **E-commerce businesses** handling multiple currencies and payment methods
+- **FinTech products** require reliable billing infrastructure
+- **Teams building internal tools** or customer portals around payments
+
+<Check>
+Whether you are a developer, product manager, or technical team lead, if you are responsible for integrating payments, handling subscriptions, or building billing flows, PayNext gives you the flexibility and clarity to do it faster and with more control.
+</Check>
+
+---
+
+## What's inside this documentation?
+
+This documentation covers the following key areas:
+
+- **Core Concepts and Architecture**
+- **Getting Started and Integration Flow**
+- **Payment Processing and Decline Handling**
+- **Subscription Lifecycle and Plan Management**
+- **Webhooks, Scheduler and Automation Workflows**
+- **PayNext CRM and Customer Management Tools**
+
+For direct API reference and SDK details, please explore:
+
+<CardGroup cols={3}>
+<Card title={'API Reference'} icon={'code'} href={'src/api-reference/introduction/getting-started'}>
+Complete API documentation with examples and endpoints
+</Card>
+
+<Card title={'Webhooks API'} icon={'webhook'} href={'src/webhooks/introduction/getting-started'}>
+Event-driven integrations and automation
+</Card>
+
+<Card title={'SDK Reference'} icon={'brackets-square'} href={'src/sdk-reference/introduction/getting-started'}>
+Client libraries and implementation guides
+</Card>
 </CardGroup>
 
-## Make it yours
+---
 
-Update your docs to your brand and add valuable content for the best user conversion.
-
-<CardGroup cols={2}>
-  <Card
-    title="Customize Style"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
-  >
-    Customize your docs to your company's colors and brands
-  </Card>
-  <Card
-    title="Reference APIs"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
-  >
-    Automatically generate endpoints from an OpenAPI spec
-  </Card>
-  <Card
-    title="Add Components"
-    icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/content/components/accordions"
-  >
-    Build interactive features and designs to guide your users
-  </Card>
-  <Card
-    title="Get Inspiration"
-    icon="stars"
-    href="https://mintlify.com/customers"
-  >
-    Check out our showcase of our favorite documentation
-  </Card>
-</CardGroup>
+Let's dive into how PayNext helps you orchestrate payments with control and confidence. Start with our [Core Concepts](src/guides/introduction/core-concepts) to understand the fundamental architecture.
